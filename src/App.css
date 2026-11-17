@@ -1,0 +1,51 @@
+/* App layout specific animations and overlay helpers */
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+}
+
+.workspace-main {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+
+/* Tooltip overlay styling */
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #0F172A;
+  color: #F8FAFC;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 50;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.2s, visibility 0.2s;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--border-dark);
+  white-space: nowrap;
+}
+
+.tooltip-container:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Tab View Fade In Transition */
+.view-transition {
+  animation: fadeIn 0.2s ease-out forwards;
+}
