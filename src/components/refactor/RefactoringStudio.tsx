@@ -7,23 +7,15 @@ import {
   Sparkles, 
   Check, 
   X, 
-  RotateCcw, 
   Download, 
   Columns, 
   AlignLeft, 
   FileCode, 
-  ShieldAlert, 
-  CheckCircle2, 
   AlertTriangle, 
   RefreshCw, 
-  Send,
-  Layers,
-  ArrowRight,
-  TrendingDown,
-  Info,
-  Search,
-  CheckCheck,
-  GitPullRequest
+  TrendingDown, 
+  Search, 
+  GitPullRequest 
 } from 'lucide-react';
 import { useRepoStore } from '@/stores/repoStore';
 import { useRefactorStore } from '@/stores/refactorStore';
@@ -39,8 +31,8 @@ const DiffEditor = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="flex items-center justify-center h-full bg-[#0D0D0D] text-xs font-mono text-[#858585]">
-        <RefreshCw className="w-4 h-4 animate-spin mr-2 text-[#E53935]" />
+      <div className="flex items-center justify-center h-full bg-[#F8FAFC] text-xs font-mono text-[#64748B]">
+        <RefreshCw className="w-4 h-4 animate-spin mr-2 text-[#E5484D]" />
         Loading Monaco Diff Editor...
       </div>
     ),
@@ -145,16 +137,16 @@ export function RefactoringStudio() {
   return (
     <div className="space-y-4 animate-fadeIn">
       {/* Top Header & Actions Strip */}
-      <div className="surface-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="surface-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded bg-[#141414] border border-[#E53935]/40 text-[#FF4D4D] flex items-center justify-center shadow-[0_0_10px_-2px_rgba(229,57,53,0.3)]">
+          <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center shadow-2xs">
             <Sparkles className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-white font-mono flex items-center gap-2">
+            <h1 className="text-base font-bold text-[#172033] flex items-center gap-2">
               AI Refactoring Studio & Monaco Diff Engine
             </h1>
-            <p className="text-xs text-[#858585] font-sans mt-0.5">
+            <p className="text-xs text-[#64748B] font-sans mt-0.5">
               Targeted AST transformation with Groq Llama-3.3-70b, regression verification, and RFC Git patch export.
             </p>
           </div>
@@ -163,11 +155,11 @@ export function RefactoringStudio() {
         {/* View mode toggle & accept/reject actions */}
         <div className="flex items-center gap-2 flex-wrap">
           {/* View mode switch */}
-          <div className="flex items-center rounded bg-[#0D0D0D] border border-[#2B2B2B] p-0.5 text-xs font-mono">
+          <div className="flex items-center rounded-md bg-[#F1F5F9] border border-[#E2E8F0] p-0.5 text-xs">
             <button
               onClick={() => setViewMode('split')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition-colors cursor-pointer ${
-                viewMode === 'split' ? 'bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B] font-bold' : 'text-[#858585] hover:text-white'
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-colors cursor-pointer font-medium ${
+                viewMode === 'split' ? 'bg-white text-[#E5484D] shadow-2xs font-semibold' : 'text-[#64748B] hover:text-[#172033]'
               }`}
             >
               <Columns className="w-3.5 h-3.5" />
@@ -175,8 +167,8 @@ export function RefactoringStudio() {
             </button>
             <button
               onClick={() => setViewMode('unified')}
-              className={`flex items-center gap-1.5 px-2.5 py-1 rounded transition-colors cursor-pointer ${
-                viewMode === 'unified' ? 'bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B] font-bold' : 'text-[#858585] hover:text-white'
+              className={`flex items-center gap-1.5 px-3 py-1 rounded-md transition-colors cursor-pointer font-medium ${
+                viewMode === 'unified' ? 'bg-white text-[#E5484D] shadow-2xs font-semibold' : 'text-[#64748B] hover:text-[#172033]'
               }`}
             >
               <AlignLeft className="w-3.5 h-3.5" />
@@ -190,7 +182,7 @@ export function RefactoringStudio() {
                 variant="outline"
                 size="sm"
                 onClick={handleRejectRefactor}
-                className="font-mono text-xs text-[#858585] hover:text-white"
+                className="text-xs text-[#64748B] hover:text-[#172033]"
                 title="Discard this AI proposal"
               >
                 <X className="w-3.5 h-3.5" />
@@ -201,10 +193,10 @@ export function RefactoringStudio() {
                 variant="outline"
                 size="sm"
                 onClick={handleDownloadPatch}
-                className="font-mono text-xs"
+                className="text-xs"
                 title="Download standard unified .patch file"
               >
-                <Download className="w-3.5 h-3.5 text-white" />
+                <Download className="w-3.5 h-3.5 text-[#172033]" />
                 <span>Patch</span>
               </Button>
 
@@ -212,10 +204,10 @@ export function RefactoringStudio() {
                 variant="secondary"
                 size="sm"
                 onClick={() => setIsPRModalOpen(true)}
-                className="font-mono text-xs text-[#FF4D4D] hover:text-white"
+                className="text-xs text-[#E5484D] hover:text-[#D9363E]"
                 title="Create GitHub Pull Request"
               >
-                <GitPullRequest className="w-3.5 h-3.5 text-[#FF4D4D]" />
+                <GitPullRequest className="w-3.5 h-3.5 text-[#E5484D]" />
                 <span>Create PR</span>
               </Button>
 
@@ -223,7 +215,7 @@ export function RefactoringStudio() {
                 variant="primary"
                 size="sm"
                 onClick={handleAcceptRefactor}
-                className="font-mono text-xs"
+                className="text-xs"
               >
                 <Check className="w-3.5 h-3.5" />
                 <span>Accept & Verify</span>
@@ -236,9 +228,9 @@ export function RefactoringStudio() {
             size="sm"
             onClick={() => handleTriggerRefactor()}
             isLoading={isGenerating}
-            className="font-mono text-xs"
+            className="text-xs"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#FF4D4D]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#E5484D]" />
             <span>{isGenerating ? 'Generating...' : 'Refactor File'}</span>
           </Button>
         </div>
@@ -248,21 +240,21 @@ export function RefactoringStudio() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* PANEL 1: Left File Tree & Analysis Findings */}
         <div className="lg:col-span-3 space-y-3">
-          <div className="surface-card p-3 space-y-2">
-            <div className="flex items-center justify-between border-b border-[#202020] pb-2 text-xs font-mono text-[#858585]">
-              <span className="font-bold text-white uppercase text-[10px]">Files in Workspace</span>
-              <span>{filteredFileList.length} files</span>
+          <div className="surface-card p-3.5 space-y-2.5 bg-white">
+            <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2 text-xs text-[#64748B]">
+              <span className="font-bold text-[#172033] uppercase text-[10px] tracking-wider font-mono">Files in Workspace</span>
+              <span className="font-mono">{filteredFileList.length} files</span>
             </div>
 
             {/* File search box */}
             <div className="relative">
-              <Search className="w-3 h-3 text-[#5C5C5C] absolute left-2 top-2" />
+              <Search className="w-3 h-3 text-[#94A3B8] absolute left-2.5 top-2.5" />
               <input
                 type="text"
                 placeholder="Search files..."
                 value={fileSearchTerm}
                 onChange={(e) => setFileSearchTerm(e.target.value)}
-                className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded pl-7 pr-2 py-1 text-[11px] text-white font-mono placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935]"
+                className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-md pl-7 pr-2.5 py-1.5 text-xs text-[#172033] font-mono placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D]"
               />
             </div>
 
@@ -275,18 +267,18 @@ export function RefactoringStudio() {
                   <button
                     key={path}
                     onClick={() => setSelectedFilePath(path)}
-                    className={`w-full flex items-center justify-between p-2 rounded text-left text-xs font-mono transition-colors cursor-pointer ${
+                    className={`w-full flex items-center justify-between p-2 rounded-md text-left text-xs font-mono transition-colors cursor-pointer ${
                       isSelected
-                        ? 'bg-[#1B1B1B] text-white border-l-2 border-[#E53935] font-bold shadow-sm'
-                        : 'text-[#858585] hover:text-white hover:bg-[#141414] border border-transparent'
+                        ? 'bg-[#FFF1F2] text-[#E5484D] border-l-2 border-[#E5484D] font-bold shadow-2xs'
+                        : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC] border border-transparent'
                     }`}
                   >
                     <div className="flex items-center gap-2 truncate">
-                      <FileCode className="w-3.5 h-3.5 shrink-0 text-[#858585]" />
+                      <FileCode className="w-3.5 h-3.5 shrink-0 text-[#64748B]" />
                       <span className="truncate">{path}</span>
                     </div>
                     {pathIssues.length > 0 && (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded font-bold bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30 shrink-0">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded font-bold bg-red-50 text-red-600 border border-red-200 shrink-0 font-mono">
                         {pathIssues.length}
                       </span>
                     )}
@@ -297,28 +289,28 @@ export function RefactoringStudio() {
           </div>
 
           {/* Active File Findings */}
-          <div className="surface-card p-3 space-y-2">
-            <div className="flex items-center justify-between border-b border-[#202020] pb-2 text-xs font-mono text-[#858585]">
-              <span className="font-bold text-white uppercase text-[10px]">Findings in Selected File</span>
-              <span className="text-[#FF4D4D] font-bold">{fileIssues.length}</span>
+          <div className="surface-card p-3.5 space-y-2.5 bg-white">
+            <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2 text-xs text-[#64748B]">
+              <span className="font-bold text-[#172033] uppercase text-[10px] tracking-wider font-mono">Findings in Selected File</span>
+              <span className="text-[#E5484D] font-bold font-mono">{fileIssues.length}</span>
             </div>
 
             {fileIssues.length === 0 ? (
-              <p className="text-xs text-[#5C5C5C] font-mono p-2">
+              <p className="text-xs text-[#94A3B8] font-sans p-2">
                 No detected AST violations in this file.
               </p>
             ) : (
-              <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 font-mono text-[11px]">
+              <div className="space-y-1.5 max-h-56 overflow-y-auto pr-1 text-xs">
                 {fileIssues.map((issue) => (
                   <div
                     key={issue.id}
-                    className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1"
+                    className="p-2.5 rounded-md bg-[#F8FAFC] border border-[#E2E8F0] space-y-1"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[#FF4D4D] font-bold">{issue.severity}</span>
-                      <span className="text-[#5C5C5C]">L:{issue.line}</span>
+                    <div className="flex items-center justify-between text-[11px] font-mono">
+                      <span className="text-red-600 font-bold">{issue.severity}</span>
+                      <span className="text-[#94A3B8]">L:{issue.line}</span>
                     </div>
-                    <p className="text-[#F5F5F5] truncate">{issue.title}</p>
+                    <p className="text-[#172033] truncate text-xs font-medium">{issue.title}</p>
                   </div>
                 ))}
               </div>
@@ -328,16 +320,16 @@ export function RefactoringStudio() {
 
         {/* PANEL 2: Center Monaco Diff Editor */}
         <div className="lg:col-span-6 space-y-3">
-          <div className="surface-card p-2 rounded-xl h-[580px] flex flex-col overflow-hidden bg-[#0D0D0D] border border-[#2B2B2B]">
-            <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#202020] text-xs font-mono text-[#858585] shrink-0 bg-[#090909]">
+          <div className="surface-card p-2 rounded-xl h-[580px] flex flex-col overflow-hidden bg-white border border-[#E2E8F0] shadow-sm">
+            <div className="flex items-center justify-between px-3.5 py-2 border-b border-[#E2E8F0] text-xs font-mono text-[#64748B] shrink-0 bg-[#F8FAFC]">
               <span className="flex items-center gap-1.5">
-                <FileCode className="w-3.5 h-3.5 text-[#E53935]" />
-                <span className="text-white font-bold">{currentFile}</span>
+                <FileCode className="w-3.5 h-3.5 text-[#E5484D]" />
+                <span className="text-[#172033] font-bold">{currentFile}</span>
               </span>
               <div className="flex items-center gap-3 text-[11px]">
-                <span className="text-[#EF4444] font-semibold">Original (Base)</span>
+                <span className="text-red-600 font-semibold">Original (Base)</span>
                 <span>⇄</span>
-                <span className="text-[#22C55E] font-semibold">Refactored (AI)</span>
+                <span className="text-emerald-600 font-semibold">Refactored (AI)</span>
               </div>
             </div>
 
@@ -346,7 +338,7 @@ export function RefactoringStudio() {
                 original={originalCode}
                 modified={refactoredCode}
                 language="javascript"
-                theme="vs-dark"
+                theme="vs"
                 options={{
                   renderSideBySide: viewMode === 'split',
                   readOnly: true,
@@ -367,31 +359,31 @@ export function RefactoringStudio() {
         <div className="lg:col-span-3 space-y-3">
           {/* Before / After Metrics Delta */}
           {metricsDelta && (
-            <div className="surface-card p-3 space-y-2 font-mono text-xs">
-              <div className="flex items-center justify-between border-b border-[#202020] pb-1.5">
-                <span className="font-bold text-white uppercase text-[10px]">Impact Metrics Delta</span>
-                <span className="text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
+            <div className="surface-card p-3.5 space-y-2.5 text-xs bg-white">
+              <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
+                <span className="font-bold text-[#172033] uppercase text-[10px] tracking-wider font-mono">Impact Metrics Delta</span>
+                <span className="text-emerald-600 font-bold flex items-center gap-1 text-[11px] font-mono">
                   <TrendingDown className="w-3 h-3" />
                   Improved
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 text-center pt-1">
-                <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                  <span className="text-[10px] text-[#5C5C5C] block">Cyclomatic</span>
-                  <div className="flex items-center justify-center gap-1.5 font-bold pt-0.5">
-                    <span className="text-[#FF4D4D]">{metricsDelta.complexityBefore}</span>
+              <div className="grid grid-cols-2 gap-2 text-center pt-1 font-mono">
+                <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[10px] text-[#64748B] block">Cyclomatic</span>
+                  <div className="flex items-center justify-center gap-1.5 font-bold pt-1">
+                    <span className="text-red-600">{metricsDelta.complexityBefore}</span>
                     <span>→</span>
-                    <span className="text-emerald-400">{metricsDelta.complexityAfter}</span>
+                    <span className="text-emerald-600">{metricsDelta.complexityAfter}</span>
                   </div>
                 </div>
 
-                <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                  <span className="text-[10px] text-[#5C5C5C] block">Total Lines</span>
-                  <div className="flex items-center justify-center gap-1.5 font-bold pt-0.5">
-                    <span className="text-[#858585]">{metricsDelta.linesBefore}</span>
+                <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[10px] text-[#64748B] block">Total Lines</span>
+                  <div className="flex items-center justify-center gap-1.5 font-bold pt-1">
+                    <span className="text-[#64748B]">{metricsDelta.linesBefore}</span>
                     <span>→</span>
-                    <span className="text-white">{metricsDelta.linesAfter}</span>
+                    <span className="text-[#172033]">{metricsDelta.linesAfter}</span>
                   </div>
                 </div>
               </div>
@@ -399,26 +391,26 @@ export function RefactoringStudio() {
           )}
 
           {/* AI Explanation & Risks */}
-          <div className="surface-card p-3 space-y-3 font-mono text-xs">
-            <div className="flex items-center gap-2 border-b border-[#202020] pb-2 text-white font-bold text-[11px] uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-[#E53935]" />
+          <div className="surface-card p-3.5 space-y-2.5 text-xs bg-white">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-2 text-[#172033] font-bold text-[11px] uppercase font-mono">
+              <Sparkles className="w-3.5 h-3.5 text-[#E5484D]" />
               <span>Architectural Explanation</span>
             </div>
 
-            <p className="text-xs text-[#B3B3B3] font-sans leading-relaxed">
+            <p className="text-xs text-[#64748B] font-sans leading-relaxed">
               {proposal?.summary || 'Select a prompt preset below or customize instructions to transform this module.'}
             </p>
 
             {proposal?.riskAssessment && proposal.riskAssessment.length > 0 && (
               <div className="space-y-1.5 pt-1">
-                <span className="text-[10px] text-amber-400 uppercase font-bold flex items-center gap-1">
+                <span className="text-[10px] text-amber-700 uppercase font-bold flex items-center gap-1 font-mono">
                   <AlertTriangle className="w-3 h-3" />
                   Regression Watchouts:
                 </span>
-                <ul className="space-y-1 font-sans text-[11px] text-[#858585]">
+                <ul className="space-y-1 font-sans text-xs text-[#64748B]">
                   {proposal.riskAssessment.map((risk, idx) => (
                     <li key={idx} className="flex items-start gap-1.5">
-                      <span className="text-[#5C5C5C]">•</span>
+                      <span className="text-[#94A3B8]">•</span>
                       <span>{risk}</span>
                     </li>
                   ))}
@@ -428,16 +420,16 @@ export function RefactoringStudio() {
           </div>
 
           {/* Prompt Presets & Custom Input */}
-          <div className="surface-card p-3 space-y-2">
-            <span className="text-[10px] font-mono text-[#858585] uppercase font-bold block">
+          <div className="surface-card p-3.5 space-y-2.5 bg-white">
+            <span className="text-[10px] font-mono text-[#64748B] uppercase font-bold block">
               Quick Prompt Presets
             </span>
-            <div className="space-y-1 font-sans text-xs">
+            <div className="space-y-1.5 font-sans text-xs">
               {promptPresets.map((preset, idx) => (
                 <button
                   key={idx}
                   onClick={() => handleTriggerRefactor(preset)}
-                  className="w-full text-left p-1.5 rounded bg-[#0D0D0D] hover:bg-[#1B1B1B] text-[#B3B3B3] hover:text-white border border-[#2B2B2B] text-[11px] transition-colors truncate block cursor-pointer"
+                  className="w-full text-left p-2 rounded-md bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#475569] hover:text-[#172033] border border-[#E2E8F0] text-xs transition-colors truncate block cursor-pointer"
                 >
                   {preset}
                 </button>
@@ -457,14 +449,14 @@ export function RefactoringStudio() {
                   placeholder="Custom refactoring instructions..."
                   value={customPrompt}
                   onChange={(e) => setCustomPrompt(e.target.value)}
-                  className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded p-2 text-xs text-white font-mono placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935]"
+                  className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-md p-2 text-xs text-[#172033] font-mono placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D]"
                 />
                 <Button
                   type="submit"
                   variant="primary"
                   size="sm"
                   isLoading={isGenerating}
-                  className="w-full font-mono text-xs"
+                  className="w-full text-xs"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Execute Custom Refactor</span>
@@ -489,4 +481,3 @@ export function RefactoringStudio() {
     </div>
   );
 }
-

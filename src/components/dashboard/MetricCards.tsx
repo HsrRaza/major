@@ -24,47 +24,47 @@ export function MetricCards({ subScores, averageComplexity, totalLines }: Metric
       score: subScores.maintainability,
       icon: Wrench,
       description: 'Single Responsibility & modularity',
-      color: '#E53935',
+      color: '#E5484D',
     },
     {
       title: 'Complexity',
       score: subScores.complexity,
       icon: Cpu,
       description: `Avg branching: ${averageComplexity}/fn`,
-      color: '#F59E0B',
+      color: '#E9A23B',
     },
     {
       title: 'Security',
       score: subScores.security,
       icon: ShieldCheck,
       description: 'Zero injection, no hardcoded secrets',
-      color: '#22C55E',
+      color: '#16A36A',
     },
     {
       title: 'Duplication',
       score: subScores.duplication,
       icon: Copy,
       description: 'AST cloned logic patterns',
-      color: '#B3B3B3',
+      color: '#64748B',
     },
     {
       title: 'Architecture',
       score: subScores.architecture,
       icon: Layers,
       description: 'Directed cycles & instability',
-      color: '#E53935',
+      color: '#E5484D',
     },
     {
       title: 'Testing',
       score: subScores.testing,
       icon: Terminal,
       description: 'Virtual VM assertion harness',
-      color: '#22C55E',
+      color: '#16A36A',
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3.5">
       {metrics.map((m) => {
         const Icon = m.icon;
         const isOptimal = m.score >= 80;
@@ -73,32 +73,32 @@ export function MetricCards({ subScores, averageComplexity, totalLines }: Metric
         return (
           <div
             key={m.title}
-            className="surface-card p-3 space-y-2 hover:border-[#383838] transition-all flex flex-col justify-between"
+            className="surface-card p-3.5 space-y-2.5 hover:border-[#CBD5E1] transition-all flex flex-col justify-between bg-white"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono text-[#858585] font-semibold">{m.title}</span>
-              <Icon className="w-3.5 h-3.5" style={{ color: m.color }} />
+              <span className="text-xs font-semibold text-[#64748B]">{m.title}</span>
+              <Icon className="w-4 h-4" style={{ color: m.color }} />
             </div>
 
             <div>
               <div className="flex items-baseline gap-1.5 font-mono">
-                <span className="text-xl font-black text-white">{m.score}</span>
-                <span className="text-[10px] text-[#5C5C5C]">/100</span>
+                <span className="text-xl font-bold text-[#172033]">{m.score}</span>
+                <span className="text-xs text-[#94A3B8]">/100</span>
               </div>
 
               {/* Progress mini-bar */}
-              <div className="w-full h-1 bg-[#1B1B1B] rounded-full overflow-hidden mt-1.5">
+              <div className="w-full h-1.5 bg-[#F1F5F9] rounded-full overflow-hidden mt-2">
                 <div
                   className="h-full rounded-full transition-all duration-500"
                   style={{
                     width: `${m.score}%`,
-                    backgroundColor: isOptimal ? '#22C55E' : isWarning ? '#F59E0B' : '#E53935',
+                    backgroundColor: isOptimal ? '#16A36A' : isWarning ? '#E9A23B' : '#E5484D',
                   }}
                 />
               </div>
             </div>
 
-            <p className="text-[10px] text-[#5C5C5C] font-mono truncate mt-1">
+            <p className="text-[11px] text-[#94A3B8] leading-tight line-clamp-1">
               {m.description}
             </p>
           </div>
@@ -107,4 +107,3 @@ export function MetricCards({ subScores, averageComplexity, totalLines }: Metric
     </div>
   );
 }
-

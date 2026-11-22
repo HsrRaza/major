@@ -55,15 +55,15 @@ export function FileExplorerTable() {
   };
 
   return (
-    <div className="surface-card p-4 sm:p-5 space-y-3.5">
+    <div className="surface-card p-5 sm:p-6 space-y-4 bg-white">
       {/* Header & Search */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#202020] pb-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E8F0] pb-3">
         <div className="flex items-center gap-2">
-          <FileCode className="w-4 h-4 text-[#E53935]" />
-          <h4 className="font-mono font-bold text-xs text-white uppercase tracking-wider">
+          <FileCode className="w-4 h-4 text-[#E5484D]" />
+          <h4 className="font-semibold text-xs text-[#172033] uppercase tracking-wider font-mono">
             Workspace Source Code Files
           </h4>
-          <span className="text-[11px] font-mono text-[#858585]">({fileList.length} indexed)</span>
+          <span className="text-xs text-[#64748B]">({fileList.length} indexed)</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -71,7 +71,7 @@ export function FileExplorerTable() {
           <select
             value={selectedLayer}
             onChange={(e) => setSelectedLayer(e.target.value)}
-            className="bg-[#0D0D0D] border border-[#2B2B2B] text-xs text-[#F5F5F5] font-mono rounded px-2.5 py-1 focus:outline-none focus:border-[#E53935]"
+            className="bg-white border border-[#E2E8F0] text-xs text-[#172033] font-medium rounded-md px-2.5 py-1.5 focus:outline-none focus:border-[#E5484D] shadow-2xs"
           >
             {layers.map(l => (
               <option key={l} value={l}>{l}</option>
@@ -80,13 +80,13 @@ export function FileExplorerTable() {
 
           {/* Search Input */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-[#858585] absolute left-2.5 top-2" />
+            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-2.5 top-2.5" />
             <input
               type="text"
               placeholder="Filter files..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#0D0D0D] border border-[#2B2B2B] rounded pl-8 pr-3 py-1 text-xs text-white font-mono placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935] w-40 sm:w-48"
+              className="bg-white border border-[#E2E8F0] rounded-md pl-8 pr-3 py-1.5 text-xs text-[#172033] placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D] w-40 sm:w-48 shadow-2xs"
             />
           </div>
         </div>
@@ -94,72 +94,73 @@ export function FileExplorerTable() {
 
       {/* File Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left font-mono text-xs">
+        <table className="w-full text-left text-xs">
           <thead>
-            <tr className="border-b border-[#202020] text-[10px] text-[#858585] uppercase tracking-wider">
+            <tr className="border-b border-[#E2E8F0] bg-[#F8FAFC] text-[11px] text-[#64748B] font-semibold uppercase tracking-wider">
               <th className="py-2.5 px-3">File Path</th>
               <th className="py-2.5 px-3">Layer</th>
               <th className="py-2.5 px-3">Lines</th>
               <th className="py-2.5 px-3">Complexity</th>
-              <th className="py-2.5 px-3">Issues</th>
               <th className="py-2.5 px-3">Maintainability</th>
+              <th className="py-2.5 px-3">Issues</th>
+              <th className="py-2.5 px-3">Risk Tier</th>
               <th className="py-2.5 px-3 text-right">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#202020]">
+          <tbody className="divide-y divide-[#E2E8F0]">
             {filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="py-6 text-center text-[#858585]">
-                  No files matching &quot;{searchTerm}&quot;
+                <td colSpan={8} className="text-center py-8 text-[#94A3B8]">
+                  No matching files found.
                 </td>
               </tr>
             ) : (
               filtered.map((file) => (
                 <tr
                   key={file.path}
+                  className="hover:bg-[#F8FAFC] transition-colors cursor-pointer group"
                   onClick={() => handleOpenFile(file.path)}
-                  className="hover:bg-[#1B1B1B] cursor-pointer group transition-colors"
                 >
-                  <td className="py-2.5 px-3 flex items-center gap-2">
-                    <FileCode className="w-3.5 h-3.5 text-[#5C5C5C] group-hover:text-[#FF4D4D] transition-colors" />
-                    <span className="text-[#F5F5F5] group-hover:text-white font-medium">{file.path}</span>
+                  <td className="py-2.5 px-3 font-mono font-medium text-[#172033] flex items-center gap-2">
+                    <FileCode className="w-3.5 h-3.5 text-[#64748B] group-hover:text-[#E5484D] transition-colors" />
+                    <span>{file.path}</span>
                   </td>
                   <td className="py-2.5 px-3">
-                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#1B1B1B] border border-[#2B2B2B] text-[#858585]">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-medium bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">
                       {file.layer}
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 text-[#858585]">{file.lines}</td>
-                  <td className="py-2.5 px-3">
-                    <span className={file.complexity > 12 ? 'text-[#FF4D4D] font-bold' : file.complexity > 6 ? 'text-amber-400' : 'text-[#B3B3B3]'}>
-                      {file.complexity}
+                  <td className="py-2.5 px-3 font-mono text-[#64748B]">{file.lines}</td>
+                  <td className="py-2.5 px-3 font-mono font-semibold text-[#172033]">{file.complexity}</td>
+                  <td className="py-2.5 px-3 font-mono">
+                    <span className={file.maintainabilityIndex > 75 ? 'text-emerald-700 font-semibold' : 'text-amber-700 font-semibold'}>
+                      {file.maintainabilityIndex}%
                     </span>
                   </td>
-                  <td className="py-2.5 px-3">
+                  <td className="py-2.5 px-3 font-mono">
                     {file.issuesCount > 0 ? (
-                      <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30">
-                        {file.issuesCount} finding{file.issuesCount > 1 ? 's' : ''}
+                      <span className="text-red-600 font-bold px-1.5 py-0.5 rounded bg-red-50 border border-red-200">
+                        {file.issuesCount}
                       </span>
                     ) : (
-                      <span className="text-[#5C5C5C] text-[10px]">Clean</span>
+                      <span className="text-emerald-700 font-medium">0</span>
                     )}
                   </td>
-                  <td className="py-2.5 px-3">
-                    <div className="flex items-center gap-2">
-                      <div className="w-12 h-1.5 bg-[#1B1B1B] rounded-full overflow-hidden">
-                        <div
-                          className="h-full rounded-full"
-                          style={{
-                            width: `${file.maintainabilityIndex}%`,
-                            backgroundColor: file.maintainabilityIndex >= 75 ? '#22C55E' : file.maintainabilityIndex >= 50 ? '#F59E0B' : '#E53935',
-                          }}
-                        />
-                      </div>
-                      <span className="text-[11px] text-[#858585]">{file.maintainabilityIndex}</span>
-                    </div>
+                  <td className="py-2.5 px-3 font-mono">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
+                        file.risk === 'High'
+                          ? 'bg-red-50 text-red-600 border border-red-200'
+                          : file.risk === 'Medium'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      }`}
+                    >
+                      {file.risk}
+                    </span>
                   </td>
                   <td className="py-2.5 px-3 text-right">
-                    <span className="text-[11px] text-[#FF4D4D] opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1">
+                    <span className="inline-flex items-center gap-1 text-[11px] text-[#64748B] group-hover:text-[#E5484D] font-medium">
                       Open <ChevronRight className="w-3 h-3" />
                     </span>
                   </td>
@@ -172,4 +173,3 @@ export function FileExplorerTable() {
     </div>
   );
 }
-

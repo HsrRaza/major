@@ -3,12 +3,8 @@
 import React, { useState } from 'react';
 import { 
   Upload, 
-  Code, 
   FolderGit2, 
-  Sparkles, 
-  CheckCircle2, 
   AlertTriangle, 
-  FileCode, 
   FileArchive, 
   ArrowRight,
   RefreshCw
@@ -139,12 +135,12 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
       maxWidth="2xl"
       title={
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded bg-[#141414] border border-[#E53935]/40 text-[#FF4D4D] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center">
             <FolderGit2 className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white font-mono">Repository Workspace Manager</h3>
-            <p className="text-xs text-[#858585] font-sans mt-0.5">
+            <h3 className="text-sm font-bold text-[#172033] font-mono">Repository Workspace Manager</h3>
+            <p className="text-xs text-[#64748B] font-sans mt-0.5">
               Import a live GitHub repo, upload a ZIP archive, or select an authentic sample codebase.
             </p>
           </div>
@@ -153,43 +149,43 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
     >
       <div className="space-y-4">
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1.5 border-b border-[#202020] pb-3 text-xs font-mono">
+        <div className="flex items-center gap-1.5 border-b border-[#E2E8F0] pb-3 text-xs font-mono">
           <button
             onClick={() => setActiveTab('sample')}
-            className={`px-3 py-1.5 rounded transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-medium ${
               activeTab === 'sample'
-                ? 'bg-[#E53935] text-white font-semibold shadow-sm shadow-[#E53935]/30'
-                : 'text-[#858585] hover:text-white hover:bg-[#1B1B1B]'
+                ? 'bg-[#E5484D] text-white shadow-xs'
+                : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC]'
             }`}
           >
             Sample Repositories
           </button>
           <button
             onClick={() => setActiveTab('github')}
-            className={`px-3 py-1.5 rounded transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-medium ${
               activeTab === 'github'
-                ? 'bg-[#E53935] text-white font-semibold shadow-sm shadow-[#E53935]/30'
-                : 'text-[#858585] hover:text-white hover:bg-[#1B1B1B]'
+                ? 'bg-[#E5484D] text-white shadow-xs'
+                : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC]'
             }`}
           >
             GitHub Import
           </button>
           <button
             onClick={() => setActiveTab('zip')}
-            className={`px-3 py-1.5 rounded transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-medium ${
               activeTab === 'zip'
-                ? 'bg-[#E53935] text-white font-semibold shadow-sm shadow-[#E53935]/30'
-                : 'text-[#858585] hover:text-white hover:bg-[#1B1B1B]'
+                ? 'bg-[#E5484D] text-white shadow-xs'
+                : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC]'
             }`}
           >
             Upload ZIP
           </button>
           <button
             onClick={() => setActiveTab('direct')}
-            className={`px-3 py-1.5 rounded transition-all cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md transition-all cursor-pointer font-medium ${
               activeTab === 'direct'
-                ? 'bg-[#E53935] text-white font-semibold shadow-sm shadow-[#E53935]/30'
-                : 'text-[#858585] hover:text-white hover:bg-[#1B1B1B]'
+                ? 'bg-[#E5484D] text-white shadow-xs'
+                : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC]'
             }`}
           >
             Paste Code
@@ -197,8 +193,8 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
         </div>
 
         {errorMessage && (
-          <div className="p-3 rounded bg-[#E53935]/10 border border-[#E53935]/40 text-[#FF4D4D] text-xs font-mono flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 shrink-0" />
+          <div className="p-3 rounded-md bg-red-50 border border-red-200 text-red-700 text-xs font-mono flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 shrink-0 text-red-600" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -206,7 +202,7 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
         {/* Tab 1: Sample Repositories */}
         {activeTab === 'sample' && (
           <div className="space-y-3">
-            <p className="text-xs text-[#858585] font-sans">
+            <p className="text-xs text-[#64748B] font-sans">
               Choose from pre-configured production repositories with authentic architectural smells, security vulnerabilities, and runnable VM test suites:
             </p>
             <div className="grid grid-cols-1 gap-2.5">
@@ -214,24 +210,24 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
                 <div
                   key={repo.id}
                   onClick={() => handleSelectSample(repo.id)}
-                  className="surface-card p-3.5 flex items-center justify-between hover:border-[#E53935]/50 cursor-pointer group transition-all"
+                  className="surface-card p-3.5 flex items-center justify-between hover:border-[#CBD5E1] cursor-pointer group transition-all bg-white"
                 >
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold font-mono text-xs text-white group-hover:text-[#FF4D4D] transition-colors">
+                      <span className="font-bold font-mono text-xs text-[#172033] group-hover:text-[#E5484D] transition-colors">
                         {repo.owner ? `${repo.owner}/${repo.name}` : repo.name}
                       </span>
-                      <span className="px-1.5 py-0.2 text-[10px] font-mono rounded bg-[#1B1B1B] border border-[#2B2B2B] text-[#858585]">
+                      <span className="px-1.5 py-0.2 text-[10px] font-mono rounded bg-[#F1F5F9] border border-[#E2E8F0] text-[#64748B]">
                         {repo.language || 'JS'}
                       </span>
                     </div>
-                    <p className="text-[11px] text-[#858585] max-w-md font-sans">
+                    <p className="text-xs text-[#64748B] max-w-md font-sans">
                       {repo.description}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 font-mono text-xs text-[#858585] group-hover:text-white">
+                  <div className="flex items-center gap-2 font-mono text-xs text-[#64748B] group-hover:text-[#172033]">
                     <span>{Object.keys(repo.files).length} files</span>
-                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#FF4D4D]" />
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#E5484D]" />
                   </div>
                 </div>
               ))}
@@ -243,23 +239,23 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
         {activeTab === 'github' && (
           <form onSubmit={handleGithubImport} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#F5F5F5] font-semibold block">
+              <label className="text-xs font-medium text-[#172033] block">
                 Public GitHub Repository URL
               </label>
               <div className="relative">
-                <GithubIcon className="w-4 h-4 text-[#858585] absolute left-3 top-2.5" />
+                <GithubIcon className="w-4 h-4 text-[#94A3B8] absolute left-3 top-3" />
                 <input
                   type="text"
                   placeholder="https://github.com/facebook/react or https://github.com/expressjs/express"
                   value={githubUrl}
                   onChange={(e) => setGithubUrl(e.target.value)}
-                  className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded pl-9 pr-3.5 py-2 text-xs text-white font-mono focus:outline-none focus:border-[#E53935]"
+                  className="w-full bg-white border border-[#E2E8F0] rounded-md pl-9 pr-3.5 py-2 text-xs text-[#172033] font-mono focus:outline-none focus:border-[#E5484D] shadow-2xs"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-mono text-[#F5F5F5] font-semibold block">
+              <label className="text-xs font-medium text-[#172033] block">
                 Target Branch
               </label>
               <input
@@ -267,7 +263,7 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
                 placeholder="main (or master)"
                 value={githubBranch}
                 onChange={(e) => setGithubBranch(e.target.value)}
-                className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded px-3.5 py-2 text-xs text-white font-mono focus:outline-none focus:border-[#E53935]"
+                className="w-full bg-white border border-[#E2E8F0] rounded-md px-3.5 py-2 text-xs text-[#172033] font-mono focus:outline-none focus:border-[#E5484D] shadow-2xs"
               />
             </div>
 
@@ -286,7 +282,7 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
         {/* Tab 3: Upload ZIP */}
         {activeTab === 'zip' && (
           <div className="space-y-4">
-            <div className="border-2 border-dashed border-[#2B2B2B] hover:border-[#E53935]/50 rounded-xl p-8 text-center space-y-3 cursor-pointer bg-[#0D0D0D]/50 transition-all relative">
+            <div className="border-2 border-dashed border-[#CBD5E1] hover:border-[#E5484D] rounded-xl p-8 text-center space-y-3 cursor-pointer bg-[#F8FAFC] transition-all relative">
               <input
                 type="file"
                 accept=".zip"
@@ -294,21 +290,21 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
                 disabled={isLoading}
                 className="absolute inset-0 opacity-0 cursor-pointer"
               />
-              <div className="w-12 h-12 rounded bg-[#141414] border border-[#E53935]/30 text-[#FF4D4D] flex items-center justify-center mx-auto">
+              <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center mx-auto shadow-2xs">
                 <FileArchive className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <p className="text-xs font-mono font-bold text-white">
+                <p className="text-xs font-mono font-bold text-[#172033]">
                   Drop repository .ZIP file here or click to browse
                 </p>
-                <p className="text-[11px] text-[#858585] font-sans">
+                <p className="text-xs text-[#64748B] font-sans">
                   Automatically extracts source code, excludes node_modules/.git, and runs security scans.
                 </p>
               </div>
             </div>
             {isLoading && (
-              <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#FF4D4D]">
-                <RefreshCw className="w-4 h-4 animate-spin text-[#E53935]" />
+              <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#E5484D]">
+                <RefreshCw className="w-4 h-4 animate-spin text-[#E5484D]" />
                 <span>Extracting ZIP archive and parsing ASTs...</span>
               </div>
             )}
@@ -320,33 +316,33 @@ export function RepoImporterModal({ isOpen, onClose }: RepoImporterModalProps) {
           <form onSubmit={handleDirectSubmit} className="space-y-3">
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-1">
-                <label className="text-[11px] font-mono text-[#F5F5F5] font-semibold block">Repository / Module Name</label>
+                <label className="text-xs font-medium text-[#172033] block">Repository / Module Name</label>
                 <input
                   type="text"
                   value={directName}
                   onChange={(e) => setDirectName(e.target.value)}
-                  className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded p-2 text-xs text-white font-mono focus:outline-none focus:border-[#E53935]"
+                  className="w-full bg-white border border-[#E2E8F0] rounded-md p-2 text-xs text-[#172033] font-mono focus:outline-none focus:border-[#E5484D] shadow-2xs"
                 />
               </div>
               <div className="space-y-1">
-                <label className="text-[11px] font-mono text-[#F5F5F5] font-semibold block">File Path</label>
+                <label className="text-xs font-medium text-[#172033] block">File Path</label>
                 <input
                   type="text"
                   value={directPath}
                   onChange={(e) => setDirectPath(e.target.value)}
-                  className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded p-2 text-xs text-white font-mono focus:outline-none focus:border-[#E53935]"
+                  className="w-full bg-white border border-[#E2E8F0] rounded-md p-2 text-xs text-[#172033] font-mono focus:outline-none focus:border-[#E5484D] shadow-2xs"
                 />
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-mono text-[#F5F5F5] font-semibold block">Source Code</label>
+              <label className="text-xs font-medium text-[#172033] block">Source Code</label>
               <textarea
                 rows={8}
                 value={directCode}
                 onChange={(e) => setDirectCode(e.target.value)}
                 placeholder="// Paste JavaScript or TypeScript code here..."
-                className="w-full bg-[#0D0D0D] border border-[#2B2B2B] rounded p-3 text-xs text-[#F5F5F5] font-mono focus:outline-none focus:border-[#E53935]"
+                className="w-full bg-white border border-[#E2E8F0] rounded-md p-3 text-xs text-[#172033] font-mono focus:outline-none focus:border-[#E5484D] shadow-2xs"
               />
             </div>
 

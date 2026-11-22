@@ -44,7 +44,7 @@ export function Dialog({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-900/40 backdrop-blur-xs animate-fadeIn">
       <div
         className="fixed inset-0"
         onClick={onClose}
@@ -55,33 +55,39 @@ export function Dialog({
         role="dialog"
         aria-modal="true"
         className={cn(
-          'relative w-full rounded-xl bg-[#141414] border border-[#2B2B2B] shadow-2xl text-[#F5F5F5] flex flex-col max-h-[90vh] overflow-hidden z-10',
+          'relative w-full rounded-xl bg-white border border-[#E2E8F0] shadow-2xl text-[#172033] flex flex-col max-h-[90vh] overflow-hidden z-10',
           maxWidthClasses[maxWidth],
           className
         )}
       >
+        {/* Header */}
         {(title || description) && (
-          <div className="flex items-start justify-between border-b border-[#202020] px-5 py-4 shrink-0 bg-[#0D0D0D]">
-            <div>
-              {typeof title === 'string' ? (
-                <h3 className="text-sm font-bold text-white font-mono tracking-wide">{title}</h3>
-              ) : (
-                title
+          <div className="flex items-start justify-between px-5 py-4 border-b border-[#E2E8F0] bg-white">
+            <div className="space-y-1 pr-6">
+              {title && (
+                <div className="text-sm font-semibold font-mono text-[#172033]">
+                  {title}
+                </div>
               )}
               {description && (
-                <p className="text-xs text-[#858585] mt-1 font-sans">{description}</p>
+                <p className="text-xs text-[#64748B]">
+                  {description}
+                </p>
               )}
             </div>
+
             <button
               onClick={onClose}
-              className="p-1 rounded-md text-[#858585] hover:text-white hover:bg-[#1B1B1B] transition-colors"
+              className="p-1 rounded-md text-[#94A3B8] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors -mr-1 -mt-1 cursor-pointer"
+              title="Close modal"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
         )}
 
-        <div className="overflow-y-auto p-5 flex-grow">
+        {/* Content Body */}
+        <div className="p-5 overflow-y-auto flex-grow text-[#172033]">
           {children}
         </div>
       </div>

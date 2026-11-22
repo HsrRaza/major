@@ -22,7 +22,7 @@ export function ActivityFeed() {
       detail: `${testResult.summary.passed}/${testResult.summary.total} assertions passed in ${testResult.summary.durationMs}ms`,
       timestamp: new Date(testResult.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       icon: Terminal,
-      color: testResult.hasRegression ? 'text-[#FF4D4D]' : 'text-emerald-400',
+      color: testResult.hasRegression ? 'text-red-600' : 'text-emerald-600',
     }] : []),
     ...historyLogs.slice(0, 4).map((log) => ({
       type: 'refactor',
@@ -30,7 +30,7 @@ export function ActivityFeed() {
       detail: `Reduced complexity from ${log.complexityBefore} to ${log.complexityAfter}`,
       timestamp: log.timestamp,
       icon: Sparkles,
-      color: 'text-[#FF4D4D]',
+      color: 'text-[#E5484D]',
     })),
     {
       type: 'scan',
@@ -38,39 +38,39 @@ export function ActivityFeed() {
       detail: `${Object.keys(activeRepo?.files || {}).length} files parsed with Babel`,
       timestamp: 'Just now',
       icon: RefreshCcw,
-      color: 'text-[#858585]',
+      color: 'text-[#64748B]',
     },
   ];
 
   return (
-    <div className="surface-card p-4 sm:p-5 space-y-3.5 h-full flex flex-col justify-between">
-      <div className="flex items-center justify-between border-b border-[#202020] pb-2.5">
+    <div className="surface-card p-5 sm:p-6 space-y-4 h-full flex flex-col justify-between bg-white">
+      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
         <div className="flex items-center gap-2">
-          <Clock className="w-4 h-4 text-[#E53935]" />
-          <h4 className="font-mono font-bold text-xs text-white uppercase tracking-wider">
+          <Clock className="w-4 h-4 text-[#E5484D]" />
+          <h4 className="font-semibold text-xs text-[#172033] uppercase tracking-wider font-mono">
             Repository Activity
           </h4>
         </div>
-        <span className="text-[11px] font-mono text-[#858585]">Live Telemetry</span>
+        <span className="text-xs text-[#64748B]">Live Telemetry</span>
       </div>
 
-      <div className="space-y-2.5">
+      <div className="space-y-3">
         {activities.map((act, idx) => {
           const Icon = act.icon;
           return (
             <div
               key={idx}
-              className="flex items-start gap-3 p-2.5 rounded bg-[#0D0D0D] border border-[#2B2B2B]"
+              className="flex items-start gap-3 p-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]"
             >
-              <div className="p-1.5 rounded bg-[#141414] border border-[#2B2B2B] shrink-0 mt-0.5">
+              <div className="p-1.5 rounded-md bg-white border border-[#E2E8F0] shrink-0 mt-0.5 shadow-2xs">
                 <Icon className={`w-3.5 h-3.5 ${act.color}`} />
               </div>
               <div className="flex-grow space-y-0.5 overflow-hidden">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="font-semibold text-[#F5F5F5] truncate">{act.title}</span>
-                  <span className="text-[10px] text-[#5C5C5C] shrink-0">{act.timestamp}</span>
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-[#172033] truncate">{act.title}</span>
+                  <span className="text-[11px] text-[#94A3B8] shrink-0 font-mono">{act.timestamp}</span>
                 </div>
-                <p className="text-[11px] text-[#858585] font-sans truncate">{act.detail}</p>
+                <p className="text-xs text-[#64748B] font-sans truncate">{act.detail}</p>
               </div>
             </div>
           );
@@ -79,4 +79,3 @@ export function ActivityFeed() {
     </div>
   );
 }
-

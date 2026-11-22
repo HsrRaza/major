@@ -4,14 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { 
   Sparkles, 
-  AlertTriangle, 
   FileCode, 
-  ShieldAlert, 
   CheckCircle2, 
   ArrowRight,
-  RefreshCw,
-  Lightbulb,
-  ExternalLink
+  RefreshCw
 } from 'lucide-react';
 import { Dialog } from '@/components/ui/Dialog';
 import { Button } from '@/components/ui/Button';
@@ -95,28 +91,28 @@ export function FindingInspectorModal({ issue, onClose }: FindingInspectorModalP
       onClose={onClose}
       maxWidth="2xl"
       title={
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <span className={getSeverityBadgeClass(issue.severity)}>
             {issue.severity}
           </span>
           <div>
-            <h3 className="text-sm font-bold text-white font-mono">{issue.title}</h3>
-            <p className="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-1.5">
-              <FileCode className="w-3.5 h-3.5 text-[#818CF8]" />
+            <h3 className="text-sm font-bold text-[#172033] font-mono">{issue.title}</h3>
+            <p className="text-xs text-[#64748B] font-mono mt-0.5 flex items-center gap-1.5">
+              <FileCode className="w-3.5 h-3.5 text-[#E5484D]" />
               <span>{issue.filePath}</span>
-              <span className="text-slate-600">•</span>
+              <span className="text-[#CBD5E1]">•</span>
               <span>Line {issue.line}:{issue.column}</span>
             </p>
           </div>
         </div>
       }
     >
-      <div className="space-y-4 font-mono text-xs text-slate-200">
+      <div className="space-y-4 text-xs text-[#172033]">
         {/* Code Snippet Box */}
         {issue.codeSnippet && (
           <div className="space-y-1.5">
-            <span className="text-[11px] font-semibold text-[#858585] uppercase">Offending Code Snippet</span>
-            <div className="p-3 rounded bg-[#0D0D0D] border border-[#2B2B2B] overflow-x-auto text-[#FF4D4D] font-mono text-[11px] leading-relaxed">
+            <span className="text-[11px] font-semibold text-[#64748B] uppercase font-mono">Offending Code Snippet</span>
+            <div className="p-3 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] overflow-x-auto text-red-700 font-mono text-xs leading-relaxed">
               <pre>{issue.codeSnippet}</pre>
             </div>
           </div>
@@ -124,14 +120,14 @@ export function FindingInspectorModal({ issue, onClose }: FindingInspectorModalP
 
         {/* AI Diagnostic Explanation */}
         <div className="space-y-3 pt-2">
-          <div className="flex items-center justify-between border-b border-[#202020] pb-2">
-            <div className="flex items-center gap-2 text-white font-semibold">
-              <Sparkles className="w-4 h-4 text-[#E53935]" />
+          <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2">
+            <div className="flex items-center gap-2 text-[#172033] font-semibold">
+              <Sparkles className="w-4 h-4 text-[#E5484D]" />
               <span>Structured Groq Diagnostic Report</span>
             </div>
             {isLoading && (
-              <span className="flex items-center gap-1 text-[11px] text-[#FF4D4D]">
-                <RefreshCw className="w-3 h-3 animate-spin" />
+              <span className="flex items-center gap-1.5 text-xs text-[#E5484D] font-mono">
+                <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                 Querying Llama-3.3-70b...
               </span>
             )}
@@ -139,28 +135,28 @@ export function FindingInspectorModal({ issue, onClose }: FindingInspectorModalP
 
           {explanation && (
             <div className="space-y-3 font-sans text-xs">
-              <div className="p-3 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1">
-                <span className="font-mono text-[11px] text-amber-400 font-bold block">What is wrong:</span>
-                <p className="text-[#F5F5F5] leading-relaxed">{explanation.whatsWrong}</p>
+              <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                <span className="font-mono text-xs text-amber-700 font-bold block">What is wrong:</span>
+                <p className="text-[#172033] leading-relaxed">{explanation.whatsWrong}</p>
               </div>
 
-              <div className="p-3 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1">
-                <span className="font-mono text-[11px] text-[#FF4D4D] font-bold block">Why it matters & potential risks:</span>
-                <p className="text-[#B3B3B3] leading-relaxed">{explanation.whyProblematic}</p>
+              <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                <span className="font-mono text-xs text-red-700 font-bold block">Why it matters & potential risks:</span>
+                <p className="text-[#64748B] leading-relaxed">{explanation.whyProblematic}</p>
               </div>
 
-              <div className="p-3 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1">
-                <span className="font-mono text-[11px] text-emerald-400 font-bold block">Recommended Refactoring Approach:</span>
-                <p className="text-[#F5F5F5] leading-relaxed">{explanation.howToFix}</p>
+              <div className="p-3.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                <span className="font-mono text-xs text-emerald-700 font-bold block">Recommended Refactoring Approach:</span>
+                <p className="text-[#172033] leading-relaxed">{explanation.howToFix}</p>
               </div>
 
-              {explanation.expectedBenefits?.length > 0 && (
-                <div className="space-y-1">
-                  <span className="font-mono text-[11px] text-[#858585] font-bold uppercase">Expected Benefits:</span>
+              {explanation.expectedBenefits && explanation.expectedBenefits.length > 0 && (
+                <div className="space-y-1.5 pt-1">
+                  <span className="font-mono text-[11px] text-[#64748B] font-bold uppercase">Expected Benefits:</span>
                   <ul className="space-y-1">
                     {explanation.expectedBenefits.map((b, i) => (
-                      <li key={i} className="flex items-center gap-2 text-[#B3B3B3]">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <li key={i} className="flex items-center gap-2 text-[#475569]">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span>{b}</span>
                       </li>
                     ))}
@@ -172,7 +168,7 @@ export function FindingInspectorModal({ issue, onClose }: FindingInspectorModalP
         </div>
 
         {/* Modal Action Footer */}
-        <div className="pt-3 border-t border-[#202020] flex items-center justify-between">
+        <div className="pt-3 border-t border-[#E2E8F0] flex items-center justify-between">
           <Button variant="ghost" size="sm" onClick={onClose}>
             Close
           </Button>

@@ -18,16 +18,10 @@ import '@xyflow/react/dist/style.css';
 import { 
   Network, 
   Search, 
-  Filter, 
   AlertTriangle, 
-  Flame, 
   Sparkles, 
-  ArrowRight, 
   X, 
-  Layers, 
-  Activity, 
-  FileCode,
-  ShieldAlert
+  FileCode
 } from 'lucide-react';
 import { CustomNode } from './CustomNode';
 import { useRepoStore } from '@/stores/repoStore';
@@ -73,14 +67,14 @@ export function ArchitectureFlowGraph() {
     };
 
     const layerColors: Record<string, string> = {
-      Controller: '#E53935',
-      Service: '#B3B3B3',
-      Repository: '#22C55E',
-      Utility: '#F59E0B',
-      Config: '#5C5C5C',
-      Test: '#22C55E',
-      Component: '#D4D4D4',
-      General: '#858585',
+      Controller: '#E5484D',
+      Service: '#64748B',
+      Repository: '#16A36A',
+      Utility: '#E9A23B',
+      Config: '#94A3B8',
+      Test: '#16A36A',
+      Component: '#475569',
+      General: '#64748B',
     };
 
     const columnBuckets: string[][] = [[], [], [], []];
@@ -91,14 +85,14 @@ export function ArchitectureFlowGraph() {
     });
 
     const nodes: Node<GraphNodeData>[] = [];
-    const colXSpacing = 300;
+    const colXSpacing = 320;
     const startX = 60;
 
     columnBuckets.forEach((bucket, colIdx) => {
       const colX = startX + colIdx * colXSpacing;
       const totalInCol = bucket.length;
       const startY = 80;
-      const ySpacing = Math.max(100, Math.min(140, 600 / Math.max(1, totalInCol)));
+      const ySpacing = Math.max(110, Math.min(150, 600 / Math.max(1, totalInCol)));
 
       bucket.forEach((file, rowIdx) => {
         const metrics = fileMetrics[file] || { layer: 'General', complexity: 1, lineCount: 0 };
@@ -114,7 +108,7 @@ export function ArchitectureFlowGraph() {
           label: file.split('/').pop() || file,
           path: file,
           layer: metrics.layer,
-          color: layerColors[metrics.layer] || '#858585',
+          color: layerColors[metrics.layer] || '#64748B',
           complexity: metrics.complexity,
           lines: metrics.lineCount,
           isCircular,
@@ -151,12 +145,12 @@ export function ArchitectureFlowGraph() {
           target: targetFile,
           animated: isCycleEdge,
           style: {
-            stroke: isCycleEdge ? '#E53935' : '#2B2B2B',
+            stroke: isCycleEdge ? '#DC2626' : '#CBD5E1',
             strokeWidth: isCycleEdge ? 2.5 : 1.5,
           },
           markerEnd: {
             type: MarkerType.ArrowClosed,
-            color: isCycleEdge ? '#E53935' : '#5C5C5C',
+            color: isCycleEdge ? '#DC2626' : '#94A3B8',
           },
           data: { isCircular: isCycleEdge },
         });
@@ -209,16 +203,16 @@ export function ArchitectureFlowGraph() {
   return (
     <div className="space-y-4 animate-fadeIn">
       {/* Top Controls Bar */}
-      <div className="surface-card p-4 flex flex-col md:flex-row md:items-center justify-between gap-3">
+      <div className="surface-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-3 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded bg-[#141414] border border-[#E53935]/40 text-[#FF4D4D] flex items-center justify-center shadow-[0_0_10px_-2px_rgba(229,57,53,0.3)]">
+          <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center shadow-2xs">
             <Network className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-white font-mono flex items-center gap-2">
+            <h1 className="text-base font-bold text-[#172033] flex items-center gap-2">
               Architecture & Dependency Flow Visualizer
             </h1>
-            <p className="text-xs text-[#858585] font-sans mt-0.5">
+            <p className="text-xs text-[#64748B] font-sans mt-0.5">
               Live DAG with cycle detection, afferent/efferent coupling metrics, and architectural hotspot analysis.
             </p>
           </div>
@@ -229,13 +223,13 @@ export function ArchitectureFlowGraph() {
           {/* Circular Only Toggle */}
           <button
             onClick={() => setShowCircularOnly((prev) => !prev)}
-            className={`px-2.5 py-1.5 rounded text-xs font-mono transition-all flex items-center gap-1.5 cursor-pointer ${
+            className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all flex items-center gap-1.5 cursor-pointer ${
               showCircularOnly
-                ? 'bg-[#E53935]/20 text-[#FF4D4D] border border-[#E53935]/50 font-bold'
-                : 'bg-[#0D0D0D] text-[#858585] hover:text-white border border-[#2B2B2B]'
+                ? 'bg-red-50 text-red-700 border border-red-300 font-semibold'
+                : 'bg-white text-[#64748B] hover:text-[#172033] border border-[#E2E8F0]'
             }`}
           >
-            <AlertTriangle className="w-3.5 h-3.5 text-[#E53935]" />
+            <AlertTriangle className="w-3.5 h-3.5 text-[#E5484D]" />
             <span>Circular Cycles Only</span>
           </button>
 
@@ -243,7 +237,7 @@ export function ArchitectureFlowGraph() {
           <select
             value={layerFilter}
             onChange={(e) => setLayerFilter(e.target.value)}
-            className="bg-[#0D0D0D] border border-[#2B2B2B] rounded px-2.5 py-1.5 text-xs text-[#F5F5F5] font-mono focus:outline-none focus:border-[#E53935]"
+            className="bg-white border border-[#E2E8F0] rounded-md px-2.5 py-1.5 text-xs text-[#172033] font-medium focus:outline-none focus:border-[#E5484D] shadow-2xs"
           >
             {layers.map((l) => (
               <option key={l} value={l}>
@@ -254,20 +248,20 @@ export function ArchitectureFlowGraph() {
 
           {/* Search Input */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-[#858585] absolute left-2.5 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-2.5 top-2.5" />
             <input
               type="text"
               placeholder="Filter nodes..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#0D0D0D] border border-[#2B2B2B] rounded pl-8 pr-3 py-1.5 text-xs text-white font-mono placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935] w-40 sm:w-48"
+              className="bg-white border border-[#E2E8F0] rounded-md pl-8 pr-3 py-1.5 text-xs text-[#172033] placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D] w-40 sm:w-48 shadow-2xs"
             />
           </div>
         </div>
       </div>
 
       {/* Main Graph Canvas Area */}
-      <div className="relative w-full h-[620px] rounded-xl border border-[#202020] overflow-hidden bg-[#090909] shadow-2xl">
+      <div className="relative w-full h-[620px] rounded-xl border border-[#E2E8F0] overflow-hidden bg-white shadow-sm">
         <ReactFlow
           nodes={nodes}
           edges={edges}
@@ -279,62 +273,62 @@ export function ArchitectureFlowGraph() {
           minZoom={0.2}
           maxZoom={2}
         >
-          <Background color="#202020" gap={20} size={1} />
-          <Controls className="!bg-[#141414] !border-[#2B2B2B] !fill-[#858585]" />
+          <Background color="#E2E8F0" gap={24} size={1.5} />
+          <Controls className="!bg-white !border-[#E2E8F0] !fill-[#64748B] !shadow-sm !rounded-md" />
           <MiniMap
-            nodeColor={(node: any) => node.data?.isCircular ? '#E53935' : '#383838'}
-            className="!bg-[#090909] !border-[#2B2B2B] !rounded"
+            nodeColor={(node: any) => node.data?.isCircular ? '#DC2626' : '#CBD5E1'}
+            className="!bg-white !border-[#E2E8F0] !rounded-lg !shadow-sm"
           />
         </ReactFlow>
 
         {/* Selected Node Inspector Drawer (Right Panel) */}
         {selectedNodeData && (
-          <div className="absolute top-4 right-4 w-80 max-w-[90vw] surface-card p-4 space-y-3 z-10 animate-fadeIn bg-[#141414]/95 backdrop-blur-md shadow-2xl border border-[#2B2B2B]">
-            <div className="flex items-center justify-between border-b border-[#202020] pb-2">
+          <div className="absolute top-4 right-4 w-80 max-w-[90vw] surface-card p-4 space-y-3 z-10 animate-fadeIn bg-white/95 backdrop-blur-md shadow-xl border border-[#E2E8F0] rounded-xl text-xs">
+            <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-2.5">
               <div className="flex items-center gap-2">
-                <FileCode className="w-4 h-4 text-[#E53935]" />
-                <h4 className="text-xs font-mono font-bold text-white truncate max-w-[200px]">
+                <FileCode className="w-4 h-4 text-[#E5484D]" />
+                <h4 className="text-xs font-mono font-bold text-[#172033] truncate max-w-[200px]">
                   {selectedNodeData.label}
                 </h4>
               </div>
               <button
                 onClick={() => setSelectedNodeData(null)}
-                className="p-1 rounded text-[#858585] hover:text-white hover:bg-[#1B1B1B]"
+                className="p-1 rounded text-[#94A3B8] hover:text-[#172033] hover:bg-[#F1F5F9]"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
             </div>
 
-            <div className="space-y-2 text-xs font-mono">
-              <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1">
-                <span className="text-[10px] text-[#5C5C5C] uppercase block">Full File Path</span>
-                <span className="text-[#F5F5F5] break-all text-[11px]">{selectedNodeData.path}</span>
+            <div className="space-y-2.5 text-xs font-mono">
+              <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] space-y-1">
+                <span className="text-[10px] text-[#64748B] uppercase block">Full File Path</span>
+                <span className="text-[#172033] break-all text-[11px] font-medium">{selectedNodeData.path}</span>
               </div>
 
               {/* Coupling Metrics Grid */}
               <div className="grid grid-cols-3 gap-2 text-center">
-                <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                  <span className="text-[10px] text-[#5C5C5C] block uppercase" title="Afferent: Number of modules depending on this file">
+                <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[10px] text-[#64748B] block uppercase" title="Afferent: Number of modules depending on this file">
                     Inbound
                   </span>
-                  <span className="font-bold text-white text-xs">{selectedNodeData.afferent}</span>
+                  <span className="font-bold text-[#172033] text-sm">{selectedNodeData.afferent}</span>
                 </div>
-                <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                  <span className="text-[10px] text-[#5C5C5C] block uppercase" title="Efferent: Number of modules this file imports">
+                <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[10px] text-[#64748B] block uppercase" title="Efferent: Number of modules this file imports">
                     Outbound
                   </span>
-                  <span className="font-bold text-white text-xs">{selectedNodeData.efferent}</span>
+                  <span className="font-bold text-[#172033] text-sm">{selectedNodeData.efferent}</span>
                 </div>
-                <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                  <span className="text-[10px] text-[#5C5C5C] block uppercase" title="Instability Factor (0 = Stable, 1 = Volatile)">
+                <div className="p-2.5 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                  <span className="text-[10px] text-[#64748B] block uppercase" title="Instability Factor (0 = Stable, 1 = Volatile)">
                     Instability
                   </span>
-                  <span className="font-bold text-[#E53935] text-xs">{selectedNodeData.instability}</span>
+                  <span className="font-bold text-[#E5484D] text-sm">{selectedNodeData.instability}</span>
                 </div>
               </div>
 
               {selectedNodeData.isCircular && (
-                <div className="p-2.5 rounded bg-[#E53935]/15 border border-[#E53935]/40 text-[#FF4D4D] space-y-1 font-sans text-[11px]">
+                <div className="p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 space-y-1 font-sans text-xs">
                   <div className="flex items-center gap-1.5 font-bold font-mono">
                     <AlertTriangle className="w-3.5 h-3.5" />
                     <span>Circular Dependency Loop</span>
@@ -344,14 +338,14 @@ export function ArchitectureFlowGraph() {
               )}
 
               {/* Dependencies List */}
-              <div className="space-y-1 pt-1">
-                <span className="text-[10px] text-[#5C5C5C] uppercase font-bold">Imported Dependencies ({selectedNodeData.deps.length}):</span>
+              <div className="space-y-1.5 pt-1">
+                <span className="text-[10px] text-[#64748B] uppercase font-bold">Imported Dependencies ({selectedNodeData.deps.length}):</span>
                 {selectedNodeData.deps.length === 0 ? (
-                  <p className="text-[11px] text-[#858585] font-sans">No local module dependencies.</p>
+                  <p className="text-xs text-[#94A3B8] font-sans">No local module dependencies.</p>
                 ) : (
                   <ul className="space-y-1 max-h-24 overflow-y-auto pr-1">
                     {selectedNodeData.deps.map((dep, idx) => (
-                      <li key={idx} className="p-1 rounded bg-[#0D0D0D] text-[10px] text-[#B3B3B3] truncate">
+                      <li key={idx} className="p-1.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] text-[11px] text-[#475569] truncate">
                         {dep}
                       </li>
                     ))}
@@ -364,7 +358,7 @@ export function ArchitectureFlowGraph() {
                   variant="primary"
                   size="xs"
                   onClick={() => handleRefactorFile(selectedNodeData.path)}
-                  className="w-full"
+                  className="w-full text-xs"
                 >
                   <Sparkles className="w-3 h-3 text-white" />
                   <span>Refactor in Studio</span>
@@ -377,4 +371,3 @@ export function ArchitectureFlowGraph() {
     </div>
   );
 }
-

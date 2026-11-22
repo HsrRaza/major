@@ -16,10 +16,7 @@ import {
   Settings, 
   ChevronLeft, 
   ChevronRight, 
-  Cpu, 
   ShieldCheck,
-  Zap,
-  Flame,
   X
 } from 'lucide-react';
 import { useRepoStore } from '@/stores/repoStore';
@@ -62,7 +59,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: `/analysis/${activeRepoId}`,
       icon: SearchCode,
       badge: issuesCount > 0 ? `${issuesCount}` : null,
-      badgeColor: 'bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30',
+      badgeColor: 'bg-red-50 text-red-600 border border-red-200',
       shortcut: '3',
     },
     {
@@ -70,7 +67,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: '/issues',
       icon: Bug,
       badge: issuesCount > 0 ? `${issuesCount}` : null,
-      badgeColor: 'bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30',
+      badgeColor: 'bg-red-50 text-red-600 border border-red-200',
       shortcut: '4',
     },
     {
@@ -78,7 +75,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: `/architecture/${activeRepoId}`,
       icon: Network,
       badge: circularDepsCount > 0 ? `${circularDepsCount} Cycle${circularDepsCount > 1 ? 's' : ''}` : null,
-      badgeColor: 'bg-[#E53935]/20 text-[#FF4D4D] border border-[#E53935]/40',
+      badgeColor: 'bg-red-50 text-red-600 border border-red-200',
       shortcut: '5',
     },
     {
@@ -86,7 +83,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: `/refactor/${activeRepoId}`,
       icon: Sparkles,
       badge: 'AI',
-      badgeColor: 'bg-[#1B1B1B] text-[#FF4D4D] border border-[#E53935]/40',
+      badgeColor: 'bg-red-50 text-[#E5484D] border border-red-200',
       shortcut: '6',
     },
     {
@@ -94,7 +91,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: `/tests/${activeRepoId}`,
       icon: Terminal,
       badge: testSummary && testSummary.total > 0 ? `${testSummary.passed}/${testSummary.total}` : 'Tests',
-      badgeColor: hasRegression ? 'bg-[#E53935]/20 text-[#FF4D4D] border border-[#E53935]/40' : 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30',
+      badgeColor: hasRegression ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200',
       shortcut: '7',
     },
     {
@@ -102,7 +99,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: '/assistant',
       icon: Bot,
       badge: 'RAG',
-      badgeColor: 'bg-[#1B1B1B] text-[#B3B3B3] border border-[#2B2B2B]',
+      badgeColor: 'bg-slate-100 text-slate-600 border border-slate-200',
       shortcut: '8',
     },
     {
@@ -110,7 +107,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
       href: '/history',
       icon: History,
       badge: historyLogs.length > 0 ? `${historyLogs.length}` : null,
-      badgeColor: 'bg-[#1B1B1B] text-[#858585] border border-[#2B2B2B]',
+      badgeColor: 'bg-slate-100 text-slate-600 border border-slate-200',
       shortcut: '9',
     },
     {
@@ -131,33 +128,33 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
   return (
     <aside
       className={cn(
-        'border-r border-[#202020] bg-[#0D0D0D] flex flex-col justify-between transition-all duration-200 shrink-0 select-none z-20 h-full',
-        isCollapsed ? 'w-14' : 'w-60'
+        'border-r border-[#E2E8F0] bg-white flex flex-col justify-between transition-all duration-200 shrink-0 select-none z-20 h-full',
+        isCollapsed ? 'w-16' : 'w-64'
       )}
     >
       <div>
         {/* Brand Header */}
-        <div className="h-14 border-b border-[#202020] px-3.5 flex items-center justify-between bg-[#090909]">
+        <div className="h-14 border-b border-[#E2E8F0] px-4 flex items-center justify-between bg-white">
           <Link 
             href="/dashboard" 
             onClick={handleLinkClick}
             className="flex items-center gap-2.5 overflow-hidden group"
           >
-            <div className="w-8 h-8 rounded bg-[#141414] border border-[#E53935]/40 flex items-center justify-center shrink-0 shadow-[0_0_12px_-2px_rgba(229,57,53,0.35)] group-hover:border-[#FF4D4D] transition-colors">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#E53935] shadow-[0_0_6px_#E53935]" />
+            <div className="w-8 h-8 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center shrink-0 group-hover:border-[#E5484D] transition-colors shadow-xs">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E5484D]" />
             </div>
             {!isCollapsed && (
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
-                  <span className="font-black text-sm text-[#F5F5F5] tracking-tight font-mono">
-                    PATCH<span className="text-[#E53935]">PILOT</span>
+                  <span className="font-extrabold text-sm text-[#172033] tracking-tight font-mono">
+                    Refactor<span className="text-[#E5484D]">AI</span>
                   </span>
-                  <span className="text-[8px] font-mono font-black px-1 py-0.5 rounded bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30 tracking-widest uppercase">
+                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-red-50 text-[#E5484D] border border-red-200 tracking-wider uppercase">
                     REDLINE
                   </span>
                 </div>
-                <span className="text-[9px] font-mono text-[#5C5C5C] tracking-wider uppercase">
-                  Code Intelligence
+                <span className="text-[10px] text-[#64748B] tracking-tight">
+                  Code Intelligence Platform
                 </span>
               </div>
             )}
@@ -168,7 +165,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
               {onCloseMobile ? (
                 <button
                   onClick={onCloseMobile}
-                  className="p-1 rounded text-[#858585] hover:text-white hover:bg-[#1B1B1B] transition-colors lg:hidden"
+                  className="p-1 rounded-md text-[#64748B] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors lg:hidden"
                   title="Close Navigation"
                 >
                   <X className="w-4 h-4" />
@@ -176,7 +173,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
               ) : null}
               <button
                 onClick={() => setIsCollapsed(true)}
-                className="hidden lg:flex p-1 rounded text-[#858585] hover:text-white hover:bg-[#1B1B1B] transition-colors"
+                className="hidden lg:flex p-1 rounded-md text-[#94A3B8] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors"
                 title="Collapse Sidebar"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -186,19 +183,19 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
         </div>
 
         {isCollapsed && (
-          <div className="p-2 border-b border-[#202020] flex justify-center bg-[#090909]">
+          <div className="p-2 border-b border-[#E2E8F0] flex justify-center bg-white">
             <button
               onClick={() => setIsCollapsed(false)}
-              className="p-1.5 rounded text-[#858585] hover:text-white hover:bg-[#1B1B1B] transition-colors"
+              className="p-1.5 rounded-md text-[#64748B] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors"
               title="Expand Sidebar"
             >
-              <ChevronRight className="w-4 h-4 text-[#FF4D4D]" />
+              <ChevronRight className="w-4 h-4 text-[#E5484D]" />
             </button>
           </div>
         )}
 
         {/* Navigation Items */}
-        <nav className="p-2 space-y-1">
+        <nav className="p-2.5 space-y-1">
           {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href));
@@ -209,10 +206,10 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
                 href={item.href}
                 onClick={handleLinkClick}
                 className={cn(
-                  'w-full flex items-center justify-between px-2.5 py-2 rounded text-xs font-mono transition-all relative group',
+                  'w-full flex items-center justify-between px-3 py-2 rounded-md text-xs font-medium transition-all relative group',
                   isActive
-                    ? 'active-redline-nav bg-[#1B1B1B] text-[#F5F5F5] font-semibold border border-[#2B2B2B] shadow-sm'
-                    : 'text-[#858585] hover:text-[#F5F5F5] hover:bg-[#141414] border border-transparent'
+                    ? 'active-redline-nav bg-[#FFF1F2] text-[#E5484D] font-semibold border border-[#FECDD3] shadow-xs'
+                    : 'text-[#64748B] hover:text-[#172033] hover:bg-[#F8FAFC] border border-transparent'
                 )}
                 title={isCollapsed ? item.label : undefined}
               >
@@ -220,7 +217,7 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
                   <Icon
                     className={cn(
                       'w-4 h-4 shrink-0 transition-colors',
-                      isActive ? 'text-[#FF4D4D]' : 'text-[#5C5C5C] group-hover:text-[#B3B3B3]'
+                      isActive ? 'text-[#E5484D]' : 'text-[#64748B] group-hover:text-[#172033]'
                     )}
                   />
                   {!isCollapsed && <span className="truncate">{item.label}</span>}
@@ -239,18 +236,18 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
 
       {/* Sidebar Footer with Engine Info */}
       {!isCollapsed && (
-        <div className="p-3 border-t border-[#202020] bg-[#090909] space-y-2">
-          <div className="flex items-center justify-between text-[11px] font-mono">
-            <span className="flex items-center gap-1.5 text-[#F5F5F5] font-semibold">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E53935] shadow-[0_0_6px_#E53935] animate-pulse" />
+        <div className="p-3.5 border-t border-[#E2E8F0] bg-[#F8FAFC] space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="flex items-center gap-1.5 text-[#172033] font-semibold">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E5484D] animate-pulse" />
               <span>PatchPilot Core</span>
             </span>
-            <span className="text-[9px] text-[#858585] bg-[#141414] px-1.5 py-0.5 rounded border border-[#2B2B2B] font-mono">
-              REDLINE v3.2
+            <span className="text-[10px] text-[#64748B] bg-white px-1.5 py-0.5 rounded border border-[#E2E8F0] font-mono">
+              v3.2 Light
             </span>
           </div>
-          <div className="text-[10px] text-[#858585] font-mono flex items-center gap-1.5 truncate">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+          <div className="text-[11px] text-[#64748B] flex items-center gap-1.5 truncate">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
             <span className="truncate">Groq LPU Engine Active</span>
           </div>
         </div>
@@ -258,4 +255,3 @@ export function AppSidebar({ isCollapsed, setIsCollapsed, onCloseMobile }: AppSi
     </aside>
   );
 }
-

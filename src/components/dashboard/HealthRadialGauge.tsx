@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { Activity, ShieldAlert, CheckCircle2, Flame } from 'lucide-react';
+import { Activity } from 'lucide-react';
 import { getHealthColor } from '@/lib/utils';
 
 interface HealthRadialGaugeProps {
@@ -29,17 +29,17 @@ export function HealthRadialGauge({
   const isDebt = score < 75;
 
   return (
-    <div className="surface-card p-4 sm:p-5 flex flex-col justify-between space-y-4 h-full">
-      <div className="flex items-center justify-between border-b border-[#202020] pb-3">
+    <div className="surface-card p-5 sm:p-6 flex flex-col justify-between space-y-4 h-full bg-white">
+      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
         <div className="flex items-center gap-2">
-          <Activity className="w-4 h-4 text-[#E53935]" />
-          <h3 className="font-mono font-bold text-xs text-white uppercase tracking-wider">
+          <Activity className="w-4 h-4 text-[#E5484D]" />
+          <h3 className="font-semibold text-xs text-[#172033] uppercase tracking-wider font-mono">
             Overall Code Health Index
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <span className="text-[10px] font-mono text-[#858585] uppercase">Grade</span>
-          <span className="px-2 py-0.5 rounded font-mono font-black text-xs bg-[#1B1B1B] text-[#F5F5F5] border border-[#2B2B2B]">
+          <span className="text-xs text-[#64748B]">Grade</span>
+          <span className="px-2.5 py-0.5 rounded font-mono font-bold text-xs bg-[#F8FAFC] text-[#172033] border border-[#E2E8F0]">
             {grade}
           </span>
         </div>
@@ -54,7 +54,7 @@ export function HealthRadialGauge({
               cy="64"
               r={radius}
               fill="transparent"
-              stroke="#1B1B1B"
+              stroke="#E2E8F0"
               strokeWidth="9"
             />
             <circle
@@ -71,40 +71,39 @@ export function HealthRadialGauge({
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center font-mono">
-            <span className="text-3xl font-black text-white tracking-tight">{score}</span>
-            <span className="text-[9px] text-[#858585] font-semibold uppercase tracking-wider">out of 100</span>
+            <span className="text-3xl font-extrabold text-[#172033] tracking-tight">{score}</span>
+            <span className="text-[10px] text-[#64748B] font-medium uppercase tracking-wider">out of 100</span>
           </div>
         </div>
 
         {/* Breakdown Text & Score Explanation */}
         <div className="space-y-2.5 flex-grow">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <span
-              className="w-2 h-2 rounded-full"
+              className="w-2.5 h-2.5 rounded-full"
               style={{ backgroundColor: color }}
             />
-            <span className="text-xs font-semibold font-mono text-white">
+            <span className="text-xs font-semibold text-[#172033]">
               {score >= 80 ? 'Optimal Architecture' : score >= 60 ? 'Requires Refactoring' : 'Critical Technical Debt'}
             </span>
             {isDebt && (
-              <span className="text-[9px] font-mono font-bold uppercase px-1.5 py-0.2 rounded bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30">
+              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-red-50 text-[#E5484D] border border-red-200">
                 Debt Alert
               </span>
             )}
           </div>
 
-          <p className="text-xs text-[#B3B3B3] font-sans leading-relaxed">
+          <p className="text-xs text-[#64748B] font-sans leading-relaxed">
             {explanation}
           </p>
 
           {mounted && timestamp && (
-            <p className="text-[10px] font-mono text-[#5C5C5C]">
-              Evaluated: {new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-            </p>
+            <div className="text-[11px] font-mono text-[#94A3B8] pt-1">
+              Calculated {new Date(timestamp).toLocaleDateString()} at {new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </div>
           )}
         </div>
       </div>
     </div>
   );
 }
-

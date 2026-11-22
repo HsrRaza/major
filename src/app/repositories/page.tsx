@@ -7,15 +7,9 @@ import {
   Search, 
   Upload, 
   ArrowRight, 
-  FileCode, 
-  Activity, 
   GitBranch, 
-  Sparkles,
-  LayoutGrid,
-  List,
-  Clock,
-  Bug,
-  Code2
+  LayoutGrid, 
+  List
 } from 'lucide-react';
 import { useRepoStore } from '@/stores/repoStore';
 import { Button } from '@/components/ui/Button';
@@ -70,28 +64,28 @@ export default function RepositoriesPage() {
   return (
     <div className="max-w-7xl mx-auto space-y-5 animate-fadeIn">
       {/* Top Header & Search / Filter Controls */}
-      <div className="surface-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="surface-card p-5 sm:p-6 flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded bg-[#141414] border border-[#E53935]/40 text-[#FF4D4D] flex items-center justify-center shadow-[0_0_10px_-2px_rgba(229,57,53,0.3)]">
+          <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center shadow-2xs">
             <FolderGit2 className="w-5 h-5" />
           </div>
           <div>
-            <h1 className="text-base font-bold text-white font-mono flex items-center gap-2">
+            <h1 className="text-base sm:text-lg font-bold text-[#172033] flex items-center gap-2">
               Repository Workspaces
             </h1>
-            <p className="text-xs text-[#858585] font-sans mt-0.5">
-              Manage codebases, import GitHub repos, or switch active architectural evaluation targets.
+            <p className="text-xs text-[#64748B] font-sans mt-0.5">
+              Manage codebases, import GitHub repositories, or switch active architectural evaluation targets.
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2.5 flex-wrap">
           {/* View Mode Switcher */}
-          <div className="flex items-center rounded bg-[#0D0D0D] border border-[#2B2B2B] p-0.5 text-xs font-mono">
+          <div className="flex items-center rounded-md bg-[#F1F5F9] border border-[#E2E8F0] p-0.5 text-xs">
             <button
               onClick={() => setViewMode('cards')}
               className={`p-1.5 rounded transition-colors cursor-pointer ${
-                viewMode === 'cards' ? 'bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]' : 'text-[#858585] hover:text-white'
+                viewMode === 'cards' ? 'bg-white text-[#E5484D] shadow-2xs font-semibold' : 'text-[#64748B] hover:text-[#172033]'
               }`}
               title="Card Grid View"
             >
@@ -100,7 +94,7 @@ export default function RepositoriesPage() {
             <button
               onClick={() => setViewMode('table')}
               className={`p-1.5 rounded transition-colors cursor-pointer ${
-                viewMode === 'table' ? 'bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]' : 'text-[#858585] hover:text-white'
+                viewMode === 'table' ? 'bg-white text-[#E5484D] shadow-2xs font-semibold' : 'text-[#64748B] hover:text-[#172033]'
               }`}
               title="Table List View"
             >
@@ -110,13 +104,13 @@ export default function RepositoriesPage() {
 
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-[#858585] absolute left-3 top-2.5" />
+            <Search className="w-3.5 h-3.5 text-[#94A3B8] absolute left-3 top-2.5" />
             <input
               type="text"
               placeholder="Search repositories..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="bg-[#0D0D0D] border border-[#2B2B2B] rounded pl-9 pr-3.5 py-1.5 text-xs text-white font-mono placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935] w-44 sm:w-56"
+              className="bg-white border border-[#E2E8F0] rounded-md pl-9 pr-3.5 py-1.5 text-xs text-[#172033] placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D] w-44 sm:w-56 shadow-2xs"
             />
           </div>
 
@@ -124,7 +118,7 @@ export default function RepositoriesPage() {
           <select
             value={sortBy}
             onChange={(e: any) => setSortBy(e.target.value)}
-            className="bg-[#0D0D0D] border border-[#2B2B2B] rounded px-3 py-1.5 text-xs text-[#F5F5F5] font-mono focus:outline-none focus:border-[#E53935]"
+            className="bg-white border border-[#E2E8F0] rounded-md px-3 py-1.5 text-xs text-[#172033] font-medium focus:outline-none focus:border-[#E5484D] shadow-2xs"
           >
             <option value="name">Sort by Name</option>
             <option value="health">Sort by Health</option>
@@ -136,7 +130,7 @@ export default function RepositoriesPage() {
             variant="primary"
             size="sm"
             onClick={() => setIsImporterOpen(true)}
-            className="font-mono text-xs whitespace-nowrap"
+            className="text-xs whitespace-nowrap"
           >
             <Upload className="w-3.5 h-3.5 text-white" />
             <span>Import Repo</span>
@@ -154,66 +148,66 @@ export default function RepositoriesPage() {
               <div
                 key={repo.id}
                 onClick={() => handleSelectRepo(repo.id)}
-                className={`surface-card p-5 flex flex-col justify-between space-y-4 cursor-pointer group transition-all relative ${
-                  isActive ? 'border-[#E53935] shadow-[0_0_16px_-3px_rgba(229,57,53,0.3)] bg-[#171717]' : 'hover:border-[#383838]'
+                className={`surface-card p-5 flex flex-col justify-between space-y-4 cursor-pointer group transition-all relative bg-white ${
+                  isActive ? 'border-[#E5484D] ring-2 ring-[#E5484D]/30 shadow-md' : 'hover:border-[#CBD5E1]'
                 }`}
               >
                 {isActive && (
-                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30">
+                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-50 text-[#E5484D] border border-red-200">
                     Active
                   </span>
                 )}
 
                 <div className="space-y-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-8 h-8 rounded bg-[#0D0D0D] border border-[#2B2B2B] flex items-center justify-center text-[#E53935]">
+                    <div className="w-8 h-8 rounded-lg bg-red-50 border border-red-200 flex items-center justify-center text-[#E5484D]">
                       <FolderGit2 className="w-4 h-4" />
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold font-mono text-white group-hover:text-[#FF4D4D] transition-colors">
+                      <h3 className="text-sm font-bold text-[#172033] group-hover:text-[#E5484D] transition-colors">
                         {repo.name}
                       </h3>
-                      <div className="flex items-center gap-2 text-[10px] font-mono text-[#858585]">
+                      <div className="flex items-center gap-2 text-[11px] text-[#64748B]">
                         <span>{repo.owner || 'acme'}</span>
                         <span>•</span>
-                        <span className="text-[#B3B3B3]">{repo.language}</span>
+                        <span className="text-[#475569]">{repo.language}</span>
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-xs text-[#858585] font-sans line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-[#64748B] font-sans line-clamp-2 leading-relaxed">
                     {repo.description || 'Source codebase analyzed with PatchPilot engine.'}
                   </p>
                 </div>
 
                 {/* Metrics Strip */}
-                <div className="pt-3 border-t border-[#202020] space-y-3 font-mono text-xs">
-                  <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                      <span className="text-[10px] text-[#5C5C5C] block uppercase">Files</span>
-                      <span className="font-bold text-white">{repo.fileCount}</span>
+                <div className="pt-3 border-t border-[#E2E8F0] space-y-3 text-xs">
+                  <div className="grid grid-cols-3 gap-2 text-center font-mono">
+                    <div className="p-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                      <span className="text-[10px] text-[#64748B] block uppercase font-medium">Files</span>
+                      <span className="font-bold text-[#172033]">{repo.fileCount}</span>
                     </div>
-                    <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                      <span className="text-[10px] text-[#5C5C5C] block uppercase">Issues</span>
-                      <span className={`font-bold ${repo.issuesCount > 0 ? 'text-[#FF4D4D]' : 'text-emerald-400'}`}>
+                    <div className="p-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                      <span className="text-[10px] text-[#64748B] block uppercase font-medium">Issues</span>
+                      <span className={`font-bold ${repo.issuesCount > 0 ? 'text-red-600' : 'text-emerald-600'}`}>
                         {repo.issuesCount}
                       </span>
                     </div>
-                    <div className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B]">
-                      <span className="text-[10px] text-[#5C5C5C] block uppercase">Health</span>
-                      <span className={`font-bold ${repo.healthScore >= 80 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                    <div className="p-2 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0]">
+                      <span className="text-[10px] text-[#64748B] block uppercase font-medium">Health</span>
+                      <span className={`font-bold ${repo.healthScore >= 80 ? 'text-emerald-600' : 'text-amber-600'}`}>
                         {repo.healthScore}
                       </span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-[#858585] pt-1">
+                  <div className="flex items-center justify-between text-xs text-[#64748B] pt-1 font-mono">
                     <span className="flex items-center gap-1.5">
-                      <GitBranch className="w-3.5 h-3.5 text-[#E53935]" />
+                      <GitBranch className="w-3.5 h-3.5 text-[#E5484D]" />
                       <span>{repo.defaultBranch || 'main'}</span>
                     </span>
 
-                    <span className="text-[#FF4D4D] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-semibold">
+                    <span className="text-[#E5484D] group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-semibold">
                       Open Workspace <ArrowRight className="w-3.5 h-3.5" />
                     </span>
                   </div>
@@ -224,10 +218,10 @@ export default function RepositoriesPage() {
         </div>
       ) : (
         /* Table View */
-        <div className="surface-card overflow-x-auto">
-          <table className="w-full text-left font-mono text-xs">
+        <div className="surface-card overflow-x-auto bg-white border border-[#E2E8F0] rounded-xl shadow-2xs">
+          <table className="w-full text-left text-xs">
             <thead>
-              <tr className="border-b border-[#202020] text-[10px] text-[#858585] uppercase tracking-wider bg-[#0D0D0D]">
+              <tr className="border-b border-[#E2E8F0] text-[11px] text-[#64748B] uppercase tracking-wider bg-[#F8FAFC] font-semibold">
                 <th className="py-3 px-4">Repository</th>
                 <th className="py-3 px-4">Primary Language</th>
                 <th className="py-3 px-4">Files</th>
@@ -237,48 +231,48 @@ export default function RepositoriesPage() {
                 <th className="py-3 px-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#202020]">
+            <tbody className="divide-y divide-[#E2E8F0]">
               {sorted.map((repo) => {
                 const isActive = repo.id === activeRepoId;
                 return (
                   <tr
                     key={repo.id}
                     onClick={() => handleSelectRepo(repo.id)}
-                    className="hover:bg-[#1B1B1B] cursor-pointer group transition-colors"
+                    className="hover:bg-[#F8FAFC] cursor-pointer group transition-colors"
                   >
                     <td className="py-3 px-4 flex items-center gap-2.5">
-                      <FolderGit2 className="w-4 h-4 text-[#E53935]" />
+                      <FolderGit2 className="w-4 h-4 text-[#E5484D]" />
                       <div>
-                        <div className="font-bold text-white group-hover:text-[#FF4D4D] transition-colors">
+                        <div className="font-bold text-[#172033] group-hover:text-[#E5484D] transition-colors">
                           {repo.name}
                         </div>
-                        <div className="text-[10px] text-[#5C5C5C]">{repo.owner || 'acme'}</div>
+                        <div className="text-[10px] text-[#64748B] font-mono">{repo.owner || 'acme'}</div>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-[#B3B3B3]">{repo.language}</td>
-                    <td className="py-3 px-4 text-white font-bold">{repo.fileCount}</td>
-                    <td className="py-3 px-4 text-[#858585]">{repo.totalLines}</td>
+                    <td className="py-3 px-4 text-[#475569]">{repo.language}</td>
+                    <td className="py-3 px-4 text-[#172033] font-bold font-mono">{repo.fileCount}</td>
+                    <td className="py-3 px-4 text-[#64748B] font-mono">{repo.totalLines}</td>
                     <td className="py-3 px-4">
                       {repo.issuesCount > 0 ? (
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/30">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-red-50 text-red-600 border border-red-200 font-mono">
                           {repo.issuesCount} findings
                         </span>
                       ) : (
-                        <span className="text-[#5C5C5C] text-[10px]">Clean</span>
+                        <span className="text-emerald-700 font-medium text-xs">Clean</span>
                       )}
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`font-bold ${getHealthBadgeClass(repo.healthScore)} px-2 py-0.5 rounded`}>
+                      <span className={`font-bold ${getHealthBadgeClass(repo.healthScore)} px-2 py-0.5 rounded font-mono`}>
                         {repo.healthScore}/100
                       </span>
                     </td>
                     <td className="py-3 px-4 text-right">
                       {isActive ? (
-                        <span className="text-[10px] font-bold text-[#FF4D4D] bg-[#E53935]/15 px-2 py-0.5 rounded border border-[#E53935]/30">
+                        <span className="text-[10px] font-bold text-[#E5484D] bg-red-50 px-2.5 py-1 rounded border border-red-200 font-mono">
                           ACTIVE
                         </span>
                       ) : (
-                        <span className="text-[11px] text-[#858585] group-hover:text-[#FF4D4D] inline-flex items-center gap-1 font-semibold">
+                        <span className="text-xs text-[#64748B] group-hover:text-[#E5484D] inline-flex items-center gap-1 font-semibold">
                           Switch <ArrowRight className="w-3 h-3" />
                         </span>
                       )}
@@ -299,4 +293,3 @@ export default function RepositoriesPage() {
     </div>
   );
 }
-

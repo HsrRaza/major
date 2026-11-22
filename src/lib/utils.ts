@@ -10,27 +10,26 @@ export function formatNumber(num: number): string {
 }
 
 export function getHealthColor(score: number): string {
-  if (score >= 80) return '#22C55E';
-  if (score >= 60) return '#F59E0B';
-  return '#E53935';
+  if (score >= 80) return '#16A36A';
+  if (score >= 60) return '#E9A23B';
+  return '#E5484D';
 }
 
 export function getHealthBadgeClass(score: number): string {
-  if (score >= 80) return 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400';
-  if (score >= 60) return 'bg-amber-500/10 border-amber-500/30 text-amber-400';
-  return 'bg-[#E53935]/15 border-[#E53935]/40 text-[#FF4D4D]';
+  if (score >= 80) return 'bg-emerald-50 border-emerald-200 text-emerald-700';
+  if (score >= 60) return 'bg-amber-50 border-amber-200 text-amber-700';
+  return 'bg-red-50 border-red-200 text-red-600';
 }
 
 export function getSeverityBadgeClass(severity: string): string {
   switch (severity) {
     case 'Critical':
-      return 'bg-[#E53935]/15 text-[#FF4D4D] border border-[#E53935]/40 font-mono text-[10px] font-bold uppercase px-1.5 py-0.5 rounded';
+      return 'bg-red-50 text-red-600 border border-red-200 font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded';
     case 'High':
-      return 'bg-amber-500/15 text-amber-400 border border-amber-500/35 font-mono text-[10px] font-bold uppercase px-1.5 py-0.5 rounded';
+      return 'bg-amber-50 text-amber-700 border border-amber-200 font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded';
     case 'Medium':
-      return 'bg-[#2B2B2B] text-[#D4D4D4] border border-[#383838] font-mono text-[10px] font-bold uppercase px-1.5 py-0.5 rounded';
+      return 'bg-slate-100 text-slate-700 border border-slate-200 font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded';
     default:
-      return 'bg-[#1B1B1B] text-[#858585] border border-[#2B2B2B] font-mono text-[10px] font-bold uppercase px-1.5 py-0.5 rounded';
+      return 'bg-slate-50 text-slate-600 border border-slate-200 font-mono text-[10px] font-bold uppercase px-2 py-0.5 rounded';
   }
 }
-

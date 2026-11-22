@@ -11,25 +11,25 @@ export const CustomNode = memo(({ data, selected }: { data: GraphNodeData; selec
 
   return (
     <div
-      className={`px-3 py-2.5 rounded border shadow-xl transition-all font-mono text-xs min-w-[190px] select-none ${
+      className={`px-3.5 py-3 rounded-lg border shadow-xs transition-all font-mono text-xs min-w-[200px] select-none ${
         selected
-          ? 'ring-1 ring-[#E53935] border-white/80 bg-[#1B1B1B]'
+          ? 'ring-2 ring-[#E5484D] border-[#E5484D] bg-white shadow-md'
           : isCircular
-          ? 'border-[#E53935] bg-[#170E0E] shadow-[0_0_12px_-2px_rgba(229,57,53,0.35)]'
+          ? 'border-red-300 bg-red-50/80 shadow-xs'
           : isHotspot
-          ? 'border-amber-500/50 bg-[#18140C]'
-          : 'border-[#2B2B2B] bg-[#141414] hover:border-[#383838]'
+          ? 'border-amber-300 bg-amber-50/80 shadow-xs'
+          : 'border-[#E2E8F0] bg-white hover:border-[#CBD5E1] shadow-2xs'
       }`}
     >
       <Handle
         type="target"
         position={Position.Left}
-        className="!w-2 !h-2 !bg-[#E53935] !border-none"
+        className="!w-2.5 !h-2.5 !bg-[#E5484D] !border-2 !border-white shadow-xs"
       />
 
-      <div className="flex items-center justify-between gap-2 pb-1 border-b border-[#202020]">
+      <div className="flex items-center justify-between gap-2 pb-1.5 border-b border-[#E2E8F0]">
         <span
-          className="text-[9px] uppercase px-1.5 py-0.2 rounded font-bold font-mono"
+          className="text-[10px] uppercase px-1.5 py-0.5 rounded font-bold font-mono"
           style={{
             backgroundColor: `${data.color}15`,
             color: data.color,
@@ -42,7 +42,7 @@ export const CustomNode = memo(({ data, selected }: { data: GraphNodeData; selec
         <div className="flex items-center gap-1">
           {isCircular && (
             <span
-              className="flex items-center gap-1 text-[9px] text-[#FF4D4D] font-bold bg-[#E53935]/20 px-1 rounded border border-[#E53935]/40 animate-pulse"
+              className="flex items-center gap-1 text-[9px] text-red-600 font-bold bg-red-100 px-1.5 py-0.5 rounded border border-red-200"
               title="Circular Dependency Loop"
             >
               <AlertTriangle className="w-2.5 h-2.5" />
@@ -51,7 +51,7 @@ export const CustomNode = memo(({ data, selected }: { data: GraphNodeData; selec
           )}
           {isHotspot && (
             <span
-              className="flex items-center gap-1 text-[9px] text-amber-400 font-bold bg-amber-500/20 px-1 rounded border border-amber-500/40"
+              className="flex items-center gap-1 text-[9px] text-amber-700 font-bold bg-amber-100 px-1.5 py-0.5 rounded border border-amber-200"
               title="Architectural Hotspot"
             >
               <Flame className="w-2.5 h-2.5" />
@@ -61,16 +61,16 @@ export const CustomNode = memo(({ data, selected }: { data: GraphNodeData; selec
         </div>
       </div>
 
-      <div className="pt-1.5 flex items-center gap-1.5 text-white font-bold truncate">
-        <FileCode className="w-3.5 h-3.5 text-[#858585] shrink-0" />
+      <div className="pt-2 flex items-center gap-1.5 text-[#172033] font-semibold truncate">
+        <FileCode className="w-3.5 h-3.5 text-[#64748B] shrink-0" />
         <span className="truncate">{data.label}</span>
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-[#858585] pt-1.5 font-mono">
+      <div className="flex items-center justify-between text-[11px] text-[#64748B] pt-2 font-mono">
         <span>LOC: {data.lines}</span>
         <span>Complexity: {data.complexity}</span>
         {data.issuesCount > 0 && (
-          <span className="text-[#FF4D4D] font-mono font-bold">
+          <span className="text-red-600 font-bold">
             {data.issuesCount} issue{data.issuesCount > 1 ? 's' : ''}
           </span>
         )}
@@ -79,11 +79,10 @@ export const CustomNode = memo(({ data, selected }: { data: GraphNodeData; selec
       <Handle
         type="source"
         position={Position.Right}
-        className="!w-2 !h-2 !bg-[#858585] !border-none"
+        className="!w-2.5 !h-2.5 !bg-[#64748B] !border-2 !border-white shadow-xs"
       />
     </div>
   );
 });
 
 CustomNode.displayName = 'CustomNode';
-

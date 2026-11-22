@@ -7,9 +7,7 @@ import {
   Copy, 
   Check, 
   ExternalLink, 
-  Terminal,
-  ShieldCheck,
-  Sparkles
+  Terminal
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 
@@ -83,7 +81,7 @@ git push origin ${cleanBranch}`;
 
   const handleCopyGitCommand = () => {
     navigator.clipboard.writeText(gitCliCommand);
-    setCopiedGitCmd(false);
+    setCopiedGitCmd(true);
     setTimeout(() => setCopiedGitCmd(false), 2000);
   };
 
@@ -96,53 +94,53 @@ git push origin ${cleanBranch}`;
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#090909]/85 backdrop-blur-md flex items-center justify-center p-4 animate-fadeIn font-mono text-xs">
-      <div className="surface-card max-w-xl w-full p-5 space-y-4 bg-[#141414] border-[#2B2B2B] shadow-2xl relative max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center p-4 animate-fadeIn font-mono text-xs">
+      <div className="surface-card max-w-xl w-full p-6 space-y-4 bg-white border border-[#E2E8F0] shadow-2xl relative max-h-[90vh] overflow-y-auto rounded-xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#202020] pb-3">
+        <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-md bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]">
-              <GitPullRequest className="w-5 h-5 text-[#FF4D4D]" />
+            <div className="p-2 rounded-lg bg-red-50 text-[#E5484D] border border-red-200">
+              <GitPullRequest className="w-5 h-5 text-[#E5484D]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-[#F5F5F5] font-mono tracking-tight uppercase">
+                <h3 className="text-sm font-bold text-[#172033] font-mono tracking-tight uppercase">
                   Pull Request Generator
                 </h3>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]">
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-50 text-[#E5484D] border border-red-200 font-bold">
                   GITHUB AUTOMATION
                 </span>
               </div>
-              <p className="text-[11px] text-[#858585] font-sans mt-0.5">
+              <p className="text-xs text-[#64748B] font-sans mt-0.5">
                 Formatted markdown summary with telemetry benchmarks ready for code review.
               </p>
             </div>
           </div>
           <button 
             onClick={onClose}
-            className="p-1.5 rounded-md hover:bg-[#1B1B1B] text-[#858585] hover:text-[#F5F5F5] transition-colors"
+            className="p-1.5 rounded-md hover:bg-[#F1F5F9] text-[#94A3B8] hover:text-[#172033] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* PR Content Preview */}
-        <div className="space-y-3">
+        <div className="space-y-3.5">
           <div className="space-y-1">
-            <label className="text-[11px] text-[#858585] block uppercase font-bold text-[10px]">PR Title</label>
-            <div className="p-2.5 rounded bg-[#0D0D0D] border border-[#202020] text-[#F5F5F5] font-bold truncate">
+            <label className="text-[11px] text-[#64748B] block uppercase font-bold">PR Title</label>
+            <div className="p-2.5 rounded-md bg-[#F8FAFC] border border-[#E2E8F0] text-[#172033] font-bold truncate">
               {prTitle}
             </div>
           </div>
 
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <label className="text-[10px] uppercase font-bold text-[#858585]">Markdown Summary</label>
+              <label className="text-[10px] uppercase font-bold text-[#64748B]">Markdown Summary</label>
               <button
                 onClick={handleCopyMarkdown}
-                className="text-[11px] text-[#FF4D4D] hover:text-[#F5F5F5] flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#E5484D] hover:text-[#D9363E] flex items-center gap-1 font-semibold cursor-pointer"
               >
-                {copied ? <Check className="w-3 h-3 text-[#22C55E]" /> : <Copy className="w-3 h-3" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copied ? 'Copied Markdown' : 'Copy Markdown'}</span>
               </button>
             </div>
@@ -150,42 +148,42 @@ git push origin ${cleanBranch}`;
               readOnly
               rows={7}
               value={prBody}
-              className="w-full bg-[#0D0D0D] border border-[#202020] rounded p-3 text-[11px] text-[#B3B3B3] font-mono resize-none focus:outline-none"
+              className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-md p-3 text-xs text-[#172033] font-mono resize-none focus:outline-none"
             />
           </div>
 
           {/* Terminal CLI Command */}
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <label className="text-[10px] uppercase font-bold text-[#858585] flex items-center gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-[#FF4D4D]" />
+              <label className="text-[10px] uppercase font-bold text-[#64748B] flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-[#E5484D]" />
                 <span>Git CLI Commands</span>
               </label>
               <button
                 onClick={handleCopyGitCommand}
-                className="text-[11px] text-[#FF4D4D] hover:text-[#F5F5F5] flex items-center gap-1 font-semibold cursor-pointer"
+                className="text-xs text-[#E5484D] hover:text-[#D9363E] flex items-center gap-1 font-semibold cursor-pointer"
               >
-                {copiedGitCmd ? <Check className="w-3 h-3 text-[#22C55E]" /> : <Copy className="w-3 h-3" />}
+                {copiedGitCmd ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
                 <span>{copiedGitCmd ? 'Copied' : 'Copy'}</span>
               </button>
             </div>
-            <pre className="p-3 rounded bg-[#0D0D0D] border border-[#202020] text-[11px] text-[#22C55E] overflow-x-auto whitespace-pre font-mono">
+            <pre className="p-3 rounded-md bg-slate-900 border border-slate-800 text-xs text-emerald-400 overflow-x-auto whitespace-pre font-mono">
               {gitCliCommand}
             </pre>
           </div>
         </div>
 
         {/* Footer Actions */}
-        <div className="flex items-center justify-between pt-3 border-t border-[#202020]">
-          <span className="text-[10px] text-[#858585]">
-            Target: {repoName} • {cleanBranch}
+        <div className="flex items-center justify-between pt-3 border-t border-[#E2E8F0]">
+          <span className="text-[11px] text-[#64748B]">
+            Target: <strong className="text-[#172033]">{repoName}</strong> • {cleanBranch}
           </span>
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
               onClick={onClose}
-              className="font-mono text-xs"
+              className="text-xs"
             >
               Close
             </Button>
@@ -194,7 +192,7 @@ git push origin ${cleanBranch}`;
               size="sm"
               onClick={handleCreateGitHubPR}
               isLoading={isCreatingPR}
-              className="font-mono text-xs"
+              className="text-xs"
             >
               <GitPullRequest className="w-3.5 h-3.5" />
               <span>Create GitHub PR</span>
@@ -203,16 +201,16 @@ git push origin ${cleanBranch}`;
         </div>
 
         {prCreatedUrl && (
-          <div className="p-2.5 rounded bg-[#22C55E]/15 border border-[#22C55E]/30 text-xs text-[#22C55E] flex items-center justify-between animate-fadeIn">
+          <div className="p-3 rounded-md bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-center justify-between animate-fadeIn">
             <span>Branch prepared! Click to open PR directly on GitHub:</span>
             <a
               href={prCreatedUrl}
               target="_blank"
               rel="noreferrer"
-              className="font-bold underline flex items-center gap-1 text-[#F5F5F5] hover:text-white"
+              className="font-bold underline flex items-center gap-1 text-emerald-900 hover:text-black"
             >
               <span>Open in GitHub</span>
-              <ExternalLink className="w-3 h-3" />
+              <ExternalLink className="w-3.5 h-3.5" />
             </a>
           </div>
         )}

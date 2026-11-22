@@ -12,28 +12,28 @@ export function IssueDistribution({ counts }: IssueDistributionProps) {
   const total = counts.totalIssues || 1;
 
   const distribution = [
-    { label: 'Critical', count: counts.critical, color: '#E53935', icon: AlertOctagon, textClass: 'text-[#FF4D4D]' },
-    { label: 'High', count: counts.high, color: '#F59E0B', icon: AlertTriangle, textClass: 'text-amber-400' },
-    { label: 'Medium', count: counts.medium, color: '#858585', icon: Info, textClass: 'text-[#D4D4D4]' },
-    { label: 'Low', count: counts.low, color: '#5C5C5C', icon: CheckCircle2, textClass: 'text-[#858585]' },
+    { label: 'Critical', count: counts.critical, color: '#DC2626', icon: AlertOctagon, bg: 'bg-red-50', border: 'border-red-200' },
+    { label: 'High', count: counts.high, color: '#D97706', icon: AlertTriangle, bg: 'bg-amber-50', border: 'border-amber-200' },
+    { label: 'Medium', count: counts.medium, color: '#475569', icon: Info, bg: 'bg-slate-50', border: 'border-slate-200' },
+    { label: 'Low', count: counts.low, color: '#64748B', icon: CheckCircle2, bg: 'bg-[#F8FAFC]', border: 'border-[#E2E8F0]' },
   ];
 
   return (
-    <div className="surface-card p-4 sm:p-5 space-y-3.5 h-full flex flex-col justify-between">
-      <div className="flex items-center justify-between border-b border-[#202020] pb-2.5">
+    <div className="surface-card p-5 sm:p-6 space-y-4 h-full flex flex-col justify-between bg-white">
+      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3">
         <div className="flex items-center gap-2">
-          <Bug className="w-4 h-4 text-[#E53935]" />
-          <h4 className="font-mono font-bold text-xs text-white uppercase tracking-wider">
+          <Bug className="w-4 h-4 text-[#E5484D]" />
+          <h4 className="font-semibold text-xs text-[#172033] uppercase tracking-wider font-mono">
             Issue Severity Distribution
           </h4>
         </div>
-        <span className="text-[11px] font-mono text-[#858585]">
-          Total: <strong className="text-white">{counts.totalIssues} findings</strong>
+        <span className="text-xs text-[#64748B]">
+          Total: <strong className="text-[#172033]">{counts.totalIssues} findings</strong>
         </span>
       </div>
 
       {/* Segmented Bar */}
-      <div className="w-full h-2 rounded bg-[#1B1B1B] flex overflow-hidden">
+      <div className="w-full h-2.5 rounded-full bg-[#F1F5F9] flex overflow-hidden">
         {distribution.map((d) => {
           if (d.count === 0) return null;
           const percentage = (d.count / total) * 100;
@@ -49,16 +49,16 @@ export function IssueDistribution({ counts }: IssueDistributionProps) {
       </div>
 
       {/* Legend & Counts */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 font-mono text-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-xs">
         {distribution.map((d) => {
           const Icon = d.icon;
           return (
-            <div key={d.label} className="p-2 rounded bg-[#0D0D0D] border border-[#2B2B2B] space-y-1">
-              <div className="flex items-center gap-1.5 text-[10px] text-[#858585]">
-                <Icon className="w-3 h-3" style={{ color: d.color }} />
+            <div key={d.label} className={`p-2.5 rounded-lg ${d.bg} border ${d.border} space-y-1`}>
+              <div className="flex items-center gap-1.5 text-[11px] text-[#64748B]">
+                <Icon className="w-3.5 h-3.5" style={{ color: d.color }} />
                 <span>{d.label}</span>
               </div>
-              <div className="text-base font-black text-white">{d.count}</div>
+              <div className="text-lg font-bold text-[#172033] font-mono">{d.count}</div>
             </div>
           );
         })}
@@ -66,4 +66,3 @@ export function IssueDistribution({ counts }: IssueDistributionProps) {
     </div>
   );
 }
-

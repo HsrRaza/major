@@ -32,7 +32,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#090909] text-[#F5F5F5] antialiased selection:bg-[#E53935]/30 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F8FAFC] text-[#172033] antialiased selection:bg-[#E5484D]/15 selection:text-[#E5484D]">
       {/* Top Header */}
       <AppHeader
         onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
@@ -54,10 +54,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-50 lg:hidden flex animate-fadeIn">
             <div
-              className="fixed inset-0 bg-black/80 backdrop-blur-sm"
+              className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <div className="relative z-10 w-72 max-w-[85vw] h-full shadow-2xl">
+            <div className="relative z-10 w-72 max-w-[85vw] h-full shadow-2xl bg-white">
               <AppSidebar
                 isCollapsed={false}
                 setIsCollapsed={() => {}}
@@ -68,7 +68,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         )}
 
         {/* Main Content Area */}
-        <main className="flex-grow overflow-y-auto p-3 sm:p-5 lg:p-6 bg-[#090909]">
+        <main className="flex-grow overflow-y-auto p-4 sm:p-6 lg:p-7 bg-[#F8FAFC]">
           {children}
         </main>
       </div>
@@ -77,7 +77,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <div className="fixed bottom-5 right-5 z-40">
         <button
           onClick={() => setIsChatDrawerOpen((prev) => !prev)}
-          className="w-11 h-11 rounded-full bg-[#141414] border border-[#E53935]/70 text-[#FF4D4D] flex items-center justify-center shadow-[0_0_16px_-2px_rgba(229,57,53,0.4)] hover:shadow-[0_0_24px_-2px_rgba(229,57,53,0.7)] hover:border-[#FF4D4D] hover:scale-105 active:scale-95 transition-all cursor-pointer group"
+          className="w-11 h-11 rounded-full bg-white border border-[#E2E8F0] text-[#E5484D] flex items-center justify-center shadow-md hover:shadow-lg hover:border-[#E5484D] hover:bg-[#FFF1F2] hover:scale-105 active:scale-95 transition-all cursor-pointer group"
           title="Open PatchPilot AI Codebase Assistant"
         >
           {isChatDrawerOpen ? <X className="w-5 h-5" /> : <Bot className="w-5 h-5 group-hover:rotate-6 transition-transform" />}
@@ -98,7 +98,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         onOpenImporter={() => setIsImporterOpen(true)}
       />
 
-      {/* Repository Importer Modal */}
+      {/* Repo Importer Modal */}
       <RepoImporterModal
         isOpen={isImporterOpen}
         onClose={() => setIsImporterOpen(false)}
@@ -106,4 +106,3 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

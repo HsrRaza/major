@@ -8,12 +8,7 @@ import {
   Sparkles, 
   FileCode, 
   Trash2, 
-  RefreshCw, 
-  Cpu, 
-  ArrowRight,
-  Terminal,
-  ShieldCheck,
-  CheckCircle2
+  RefreshCw
 } from 'lucide-react';
 import { useRepoStore } from '@/stores/repoStore';
 import { useRefactorStore } from '@/stores/refactorStore';
@@ -28,7 +23,7 @@ interface Message {
   timestamp: string;
 }
 
-export function AssistantPage() {
+export default function AssistantPage() {
   const router = useRouter();
   const { getActiveRepo, activeRepoId, analysisResult } = useRepoStore();
   const { generateProposal } = useRefactorStore();
@@ -43,7 +38,7 @@ export function AssistantPage() {
     {
       id: 'welcome',
       sender: 'ai',
-      text: `Hello! I am your PatchPilot Principal Architect powered by Groq Llama-3.3-70b inference.
+      text: `Hello! I am your RefactorAI Principal Architect powered by Groq Llama-3.3-70b inference.
 I have indexed ${Object.keys(activeRepo?.files || {}).length} source files from ${activeRepo?.name || 'Workspace'}.
 
 You can ask me about:
@@ -135,29 +130,29 @@ You can ask me about:
   };
 
   return (
-    <div className="max-w-6xl mx-auto h-[calc(100vh-6.5rem)] flex flex-col space-y-3 animate-fadeIn">
+    <div className="max-w-6xl mx-auto h-[calc(100vh-6.5rem)] flex flex-col space-y-4 animate-fadeIn">
       {/* Header Bar */}
-      <div className="surface-card p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
+      <div className="surface-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0 bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-md bg-[#141414] border border-[#2B2B2B] text-[#FF4D4D] flex items-center justify-center shadow-inner">
-            <Bot className="w-5 h-5 text-[#FF4D4D]" />
+          <div className="w-10 h-10 rounded-lg bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center shadow-2xs">
+            <Bot className="w-5 h-5 text-[#E5484D]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-bold text-[#F5F5F5] font-mono tracking-tight uppercase">
-                AI Architect & Codebase RAG
+              <h2 className="text-base font-bold text-[#172033] tracking-tight">
+                AI Architect & Codebase RAG Chat
               </h2>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-50 text-[#E5484D] border border-red-200 font-bold">
                 REDLINE ENGINE
               </span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-[#858585] font-mono mt-0.5">
-              <span className="flex items-center gap-1.5 text-[#22C55E]">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+            <div className="flex items-center gap-2 text-xs text-[#64748B] font-mono mt-0.5">
+              <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
                 Groq Llama-3.3-70b
               </span>
-              <span className="text-[#2B2B2B]">•</span>
-              <span>Context: <span className="text-[#F5F5F5]">{activeRepo?.name || 'Workspace'}</span> ({Object.keys(activeRepo?.files || {}).length} files)</span>
+              <span className="text-[#CBD5E1]">•</span>
+              <span>Context: <strong className="text-[#172033] font-sans">{activeRepo?.name || 'Workspace'}</strong> ({Object.keys(activeRepo?.files || {}).length} files)</span>
             </div>
           </div>
         </div>
@@ -167,7 +162,7 @@ You can ask me about:
             variant="secondary"
             size="sm"
             onClick={() => setMessages([messages[0]])}
-            className="font-mono text-xs text-[#858585] hover:text-[#F5F5F5]"
+            className="text-xs text-[#64748B] hover:text-[#172033]"
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span>Clear Chat</span>
@@ -176,7 +171,7 @@ You can ask me about:
       </div>
 
       {/* Main Conversation Stream */}
-      <div className="surface-card flex-grow overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#090909]">
+      <div className="surface-card flex-grow overflow-y-auto p-4 sm:p-6 space-y-4 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl">
         {messages.map((m) => {
           const isUser = m.sender === 'user';
           return (
@@ -186,25 +181,25 @@ You can ask me about:
                 isUser ? 'items-end' : 'items-start'
               }`}
             >
-              <div className="flex items-center gap-2 text-[10px] font-mono text-[#858585] px-1">
-                <span>{isUser ? 'DEVELOPER' : 'PATCHPILOT // ARCHITECT'}</span>
+              <div className="flex items-center gap-2 text-[10px] font-mono text-[#64748B] px-1 font-medium">
+                <span>{isUser ? 'DEVELOPER' : 'REFACTORAI // ARCHITECT'}</span>
                 <span>•</span>
                 <span>{m.timestamp}</span>
               </div>
 
               <div
-                className={`p-4 rounded-lg text-xs leading-relaxed max-w-[85%] whitespace-pre-wrap transition-all ${
+                className={`p-4 rounded-xl text-xs sm:text-sm leading-relaxed max-w-[85%] whitespace-pre-wrap transition-all shadow-xs ${
                   isUser
-                    ? 'bg-[#1B1B1B] border border-[#2B2B2B] border-l-2 border-l-[#E53935] text-[#F5F5F5] font-mono shadow-md'
-                    : 'bg-[#141414] border border-[#2B2B2B] text-[#F5F5F5] font-sans shadow-lg'
+                    ? 'bg-white border border-[#E2E8F0] border-l-4 border-l-[#E5484D] text-[#172033] font-mono'
+                    : 'bg-white border border-[#E2E8F0] text-[#172033] font-sans'
                 }`}
               >
                 {m.text}
               </div>
 
               {m.citedFiles && m.citedFiles.length > 0 && (
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[#858585] pl-1 pt-1 flex-wrap">
-                  <span className="text-[#FF4D4D] font-bold flex items-center gap-1">
+                <div className="flex items-center gap-2 text-xs font-mono text-[#64748B] pl-1 pt-1 flex-wrap">
+                  <span className="text-[#E5484D] font-bold flex items-center gap-1">
                     <FileCode className="w-3.5 h-3.5" />
                     Cited Files:
                   </span>
@@ -212,7 +207,7 @@ You can ask me about:
                     <button
                       key={f}
                       onClick={() => handleOpenRefactor(f)}
-                      className="px-2 py-0.5 rounded bg-[#1B1B1B] border border-[#2B2B2B] hover:border-[#E53935] text-[#B3B3B3] hover:text-[#FF4D4D] transition-colors cursor-pointer"
+                      className="px-2 py-0.5 rounded-md bg-white border border-[#E2E8F0] hover:border-[#E5484D] text-[#172033] hover:text-[#E5484D] transition-colors cursor-pointer shadow-2xs font-medium"
                     >
                       {f}
                     </button>
@@ -224,8 +219,8 @@ You can ask me about:
         })}
 
         {isSending && (
-          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#141414] border border-[#2B2B2B] text-xs font-mono text-[#FF4D4D]">
-            <RefreshCw className="w-4 h-4 animate-spin text-[#FF4D4D]" />
+          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-white border border-[#E2E8F0] text-xs font-mono text-[#E5484D] shadow-xs">
+            <RefreshCw className="w-4 h-4 animate-spin text-[#E5484D]" />
             <span>Consulting Groq Llama-3.3-70b with repository RAG context...</span>
           </div>
         )}
@@ -233,7 +228,7 @@ You can ask me about:
 
       {/* Suggested Questions Strip */}
       <div className="space-y-1.5 shrink-0">
-        <span className="text-[10px] font-mono text-[#858585] uppercase font-bold tracking-wider px-1">
+        <span className="text-[11px] text-[#64748B] uppercase font-bold tracking-wider px-1 font-mono">
           Recommended Architectural Inquiries
         </span>
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
@@ -241,7 +236,7 @@ You can ask me about:
             <button
               key={idx}
               onClick={() => handleSend(q)}
-              className="whitespace-nowrap px-3 py-1.5 rounded-md bg-[#141414] border border-[#2B2B2B] hover:border-[#E53935]/50 text-xs font-mono text-[#B3B3B3] hover:text-[#F5F5F5] transition-all cursor-pointer shadow-sm"
+              className="whitespace-nowrap px-3 py-1.5 rounded-md bg-white border border-[#E2E8F0] hover:border-[#CBD5E1] text-xs text-[#475569] hover:text-[#172033] transition-all cursor-pointer shadow-2xs"
             >
               {q}
             </button>
@@ -249,34 +244,36 @@ You can ask me about:
         </div>
       </div>
 
-      {/* Message Input Form */}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSend();
-        }}
-        className="surface-card p-2 flex items-center gap-2 shrink-0 bg-[#0D0D0D]"
-      >
-        <input
-          type="text"
-          placeholder="Ask a technical, security, or architectural question about this codebase..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="flex-grow bg-transparent border-none text-xs text-[#F5F5F5] placeholder-[#5C5C5C] font-mono px-3 py-1.5 focus:outline-none"
-        />
-        <Button
-          type="submit"
-          variant="primary"
-          size="sm"
-          disabled={!input.trim() || isSending}
-          className="font-mono text-xs px-4"
+      {/* Prompt Input Form */}
+      <div className="surface-card p-3 bg-white shrink-0">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSend();
+          }}
+          className="flex items-center gap-2"
         >
-          <Send className="w-3.5 h-3.5" />
-          <span>Send</span>
-        </Button>
-      </form>
+          <input
+            type="text"
+            placeholder="Ask about architectural decoupling, security hardening, or refactoring..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={isSending}
+            className="flex-grow bg-white border border-[#E2E8F0] rounded-md px-3.5 py-2 text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D]"
+          />
+
+          <Button
+            type="submit"
+            variant="primary"
+            size="md"
+            disabled={isSending || !input.trim()}
+            className="shrink-0"
+          >
+            <Send className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Send Query</span>
+          </Button>
+        </form>
+      </div>
     </div>
   );
 }
-
-export default AssistantPage;

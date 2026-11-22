@@ -123,9 +123,18 @@ export const useRepoStore = create<RepoState>((set, get) => {
         const result = await runTestsApi({ repoFiles: activeRepo.files });
         set({ testResult: result, isRunningTests: false });
         return result;
-      } catch (err) {
+      } catch (err: any) {
         console.error('Run tests error:', err);
-        set({ isRunningTests: false });
+        set({ 
+          testResult: {
+            hasTests: false,
+            summary: { total: 0, passed: 0, failed: 0, durationMs: 0 },
+            testSuites: [],
+            hasRegression: false,
+            message: err.message || 'Test execution failed. Start the backend with `npm run dev:all` or `npm run server`.'
+          },
+          isRunningTests: false 
+        });
         return null;
       }
     },

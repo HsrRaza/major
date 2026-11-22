@@ -4,12 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { 
   Bot, 
   Send, 
-  Sparkles, 
   X, 
   RefreshCw, 
   FileCode, 
-  Trash2,
-  Terminal
+  Trash2
 } from 'lucide-react';
 import { useRepoStore } from '@/stores/repoStore';
 import { chatRagApi } from '@/lib/api';
@@ -35,7 +33,7 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
     {
       id: 'init',
       sender: 'ai',
-      text: `Hello! I am your PatchPilot AI Architect powered by Groq Llama-3.3-70b. I have indexed ${activeRepo?.name || 'the active workspace'}. Ask me any questions regarding architectural patterns, security vulnerabilities, or refactoring strategies.`,
+      text: `Hello! I am your RefactorAI Assistant powered by Groq Llama-3.3-70b. I have indexed ${activeRepo?.name || 'the active workspace'}. Ask me questions regarding architectural patterns, security vulnerabilities, or refactoring strategies.`,
     },
   ]);
   const [input, setInput] = useState('');
@@ -109,22 +107,22 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="surface-card p-4 space-y-3 font-mono text-xs text-[#F5F5F5] bg-[#0D0D0D] border-[#2B2B2B] shadow-2xl rounded-xl flex flex-col h-[520px]">
+    <div className="surface-card p-4 space-y-3 font-mono text-xs text-[#172033] bg-white border border-[#E2E8F0] shadow-2xl rounded-xl flex flex-col h-[520px]">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#202020] pb-3 shrink-0">
+      <div className="flex items-center justify-between border-b border-[#E2E8F0] pb-3 shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 rounded-md bg-[#141414] border border-[#2B2B2B] text-[#FF4D4D] flex items-center justify-center">
-            <Bot className="w-4 h-4 text-[#FF4D4D]" />
+          <div className="w-7 h-7 rounded-md bg-red-50 border border-red-200 text-[#E5484D] flex items-center justify-center">
+            <Bot className="w-4 h-4 text-[#E5484D]" />
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h4 className="font-bold text-[#F5F5F5] text-xs uppercase tracking-tight">AI Architect</h4>
-              <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#1B1B1B] text-[#FF4D4D] border border-[#2B2B2B]">
+              <h4 className="font-bold text-[#172033] text-xs uppercase tracking-tight">AI Architect</h4>
+              <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-red-50 text-[#E5484D] border border-red-200 font-bold">
                 RAG
               </span>
             </div>
-            <div className="flex items-center gap-1.5 text-[10px] text-[#858585]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#22C55E] animate-pulse" />
+            <div className="flex items-center gap-1.5 text-[10px] text-[#64748B]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
               <span>Groq Llama-3.3-70b</span>
             </div>
           </div>
@@ -133,14 +131,14 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-1">
           <button
             onClick={clearMessages}
-            className="p-1 rounded text-[#858585] hover:text-[#F5F5F5] hover:bg-[#1B1B1B] transition-colors"
+            className="p-1 rounded text-[#94A3B8] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors"
             title="Clear conversation"
           >
             <Trash2 className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onClose}
-            className="p-1 rounded text-[#858585] hover:text-[#F5F5F5] hover:bg-[#1B1B1B] transition-colors"
+            className="p-1 rounded text-[#94A3B8] hover:text-[#172033] hover:bg-[#F1F5F9] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -148,9 +146,9 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Repository Context Badge */}
-      <div className="px-2.5 py-1.5 rounded bg-[#141414] border border-[#202020] flex items-center justify-between text-[11px] shrink-0 text-[#858585]">
-        <span className="truncate">Context: <span className="text-[#F5F5F5]">{activeRepo?.name || 'Workspace'}</span></span>
-        <span className="text-[10px] text-[#FF4D4D] font-mono font-bold">{Object.keys(activeRepo?.files || {}).length} files</span>
+      <div className="px-2.5 py-1.5 rounded bg-[#F8FAFC] border border-[#E2E8F0] flex items-center justify-between text-xs shrink-0 text-[#64748B]">
+        <span className="truncate">Context: <strong className="text-[#172033]">{activeRepo?.name || 'Workspace'}</strong></span>
+        <span className="text-[10px] text-[#E5484D] font-mono font-bold">{Object.keys(activeRepo?.files || {}).length} files</span>
       </div>
 
       {/* Messages Scroll Area */}
@@ -167,16 +165,16 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
               <div
                 className={`p-3 rounded-lg text-xs leading-relaxed max-w-[88%] whitespace-pre-wrap ${
                   isUser
-                    ? 'bg-[#1B1B1B] border border-[#2B2B2B] border-l-2 border-l-[#E53935] text-[#F5F5F5] shadow-sm'
-                    : 'bg-[#141414] border border-[#202020] text-[#F5F5F5] shadow-inner'
+                    ? 'bg-[#FFF1F2] border border-[#FECDD3] border-l-2 border-l-[#E5484D] text-[#172033] shadow-xs'
+                    : 'bg-[#F8FAFC] border border-[#E2E8F0] text-[#172033] shadow-2xs font-sans'
                 }`}
               >
                 {m.text}
               </div>
 
               {m.citedFiles && m.citedFiles.length > 0 && (
-                <div className="flex items-center gap-1.5 text-[10px] text-[#858585] pl-1">
-                  <FileCode className="w-3 h-3 text-[#FF4D4D]" />
+                <div className="flex items-center gap-1.5 text-[10px] text-[#64748B] pl-1 font-mono">
+                  <FileCode className="w-3 h-3 text-[#E5484D]" />
                   <span>Cited: {m.citedFiles.join(', ')}</span>
                 </div>
               )}
@@ -185,8 +183,8 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
         })}
 
         {isSending && (
-          <div className="flex items-center gap-2 p-3 bg-[#141414] border border-[#202020] rounded-lg text-xs text-[#858585]">
-            <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#FF4D4D]" />
+          <div className="flex items-center gap-2 p-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-xs text-[#64748B]">
+            <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#E5484D]" />
             <span>Consulting Groq Llama-3.3-70b inference engine...</span>
           </div>
         )}
@@ -198,7 +196,7 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
           <button
             key={idx}
             onClick={() => handleSend(ps)}
-            className="whitespace-nowrap px-2 py-1 rounded bg-[#141414] border border-[#202020] hover:border-[#E53935]/50 text-[10px] text-[#B3B3B3] hover:text-[#F5F5F5] transition-all cursor-pointer"
+            className="whitespace-nowrap px-2 py-1 rounded bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#CBD5E1] text-[10px] text-[#475569] hover:text-[#172033] transition-all cursor-pointer"
           >
             {ps}
           </button>
@@ -211,14 +209,14 @@ export function AssistantChatDrawer({ onClose }: { onClose: () => void }) {
           e.preventDefault();
           handleSend();
         }}
-        className="flex items-center gap-2 pt-1 shrink-0 border-t border-[#202020]"
+        className="flex items-center gap-2 pt-1 shrink-0 border-t border-[#E2E8F0]"
       >
         <input
           type="text"
           placeholder="Ask an architectural question..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-grow bg-[#141414] border border-[#202020] rounded-md px-3 py-2 text-xs text-[#F5F5F5] placeholder-[#5C5C5C] focus:outline-none focus:border-[#E53935]"
+          className="flex-grow bg-[#F8FAFC] border border-[#E2E8F0] rounded-md px-3 py-1.5 text-xs text-[#172033] placeholder-[#94A3B8] focus:outline-none focus:border-[#E5484D]"
         />
         <Button
           type="submit"
